@@ -39,8 +39,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.2\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
@@ -78,11 +78,11 @@
     <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.31.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.31\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.31.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.31\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.31.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.31\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging, Version=3.1.31.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.31\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
@@ -183,6 +183,12 @@
     <Compile Include="UserControls\AdminControl.Designer.cs">
       <DependentUpon>AdminControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AdminRoleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AdminRoleControl.Designer.cs">
+      <DependentUpon>AdminRoleControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +206,24 @@
     </Compile>
     <Compile Include="UserControls\EmployeeControl.Designer.cs">
       <DependentUpon>EmployeeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\EmployeeRoleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\EmployeeRoleControl.Designer.cs">
+      <DependentUpon>EmployeeRoleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MeasurementUnitControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MeasurementUnitControl.Designer.cs">
+      <DependentUpon>MeasurementUnitControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PaymentMethodControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PaymentMethodControl.Designer.cs">
+      <DependentUpon>PaymentMethodControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProductTypeControl.cs">
       <SubType>UserControl</SubType>
@@ -240,6 +264,9 @@
     <EmbeddedResource Include="UserControls\AdminControl.resx">
       <DependentUpon>AdminControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AdminRoleControl.resx">
+      <DependentUpon>AdminRoleControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CategoryControl.resx">
       <DependentUpon>CategoryControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +275,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\EmployeeControl.resx">
       <DependentUpon>EmployeeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\EmployeeRoleControl.resx">
+      <DependentUpon>EmployeeRoleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MeasurementUnitControl.resx">
+      <DependentUpon>MeasurementUnitControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PaymentMethodControl.resx">
+      <DependentUpon>PaymentMethodControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProductTypeControl.resx">
       <DependentUpon>ProductTypeControl.cs</DependentUpon>

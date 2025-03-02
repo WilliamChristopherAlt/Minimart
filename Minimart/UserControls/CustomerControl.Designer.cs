@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.phoneText = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.emailText = new System.Windows.Forms.TextBox();
+            this.lastNameText = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.firstNameText = new System.Windows.Forms.TextBox();
+            this.idText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.clearButton = new System.Windows.Forms.Button();
@@ -56,14 +56,14 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox5);
+            this.groupBox1.Controls.Add(this.phoneText);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.emailText);
+            this.groupBox1.Controls.Add(this.lastNameText);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.firstNameText);
+            this.groupBox1.Controls.Add(this.idText);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.clearButton);
@@ -76,13 +76,13 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // textBox5
+            // phoneText
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(123, 189);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(188, 27);
-            this.textBox5.TabIndex = 18;
+            this.phoneText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.phoneText.Location = new System.Drawing.Point(123, 189);
+            this.phoneText.Name = "phoneText";
+            this.phoneText.Size = new System.Drawing.Size(188, 27);
+            this.phoneText.TabIndex = 18;
             // 
             // label5
             // 
@@ -94,21 +94,21 @@
             this.label5.TabIndex = 17;
             this.label5.Text = "Phone";
             // 
-            // textBox3
+            // emailText
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(123, 156);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(188, 27);
-            this.textBox3.TabIndex = 16;
+            this.emailText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emailText.Location = new System.Drawing.Point(123, 156);
+            this.emailText.Name = "emailText";
+            this.emailText.Size = new System.Drawing.Size(188, 27);
+            this.emailText.TabIndex = 16;
             // 
-            // textBox4
+            // lastNameText
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(123, 93);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(188, 27);
-            this.textBox4.TabIndex = 15;
+            this.lastNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameText.Location = new System.Drawing.Point(123, 93);
+            this.lastNameText.Name = "lastNameText";
+            this.lastNameText.Size = new System.Drawing.Size(188, 27);
+            this.lastNameText.TabIndex = 15;
             // 
             // label3
             // 
@@ -130,23 +130,23 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Last name";
             // 
-            // textBox2
+            // firstNameText
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(123, 60);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(188, 27);
-            this.textBox2.TabIndex = 12;
+            this.firstNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstNameText.Location = new System.Drawing.Point(123, 60);
+            this.firstNameText.Name = "firstNameText";
+            this.firstNameText.Size = new System.Drawing.Size(188, 27);
+            this.firstNameText.TabIndex = 12;
             // 
-            // textBox1
+            // idText
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(123, 27);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(188, 27);
-            this.textBox1.TabIndex = 11;
+            this.idText.Enabled = false;
+            this.idText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idText.HideSelection = false;
+            this.idText.Location = new System.Drawing.Point(123, 27);
+            this.idText.Name = "idText";
+            this.idText.Size = new System.Drawing.Size(188, 27);
+            this.idText.TabIndex = 11;
             // 
             // label2
             // 
@@ -242,11 +242,14 @@
             this.datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid.Location = new System.Drawing.Point(23, 67);
             this.datagrid.Name = "datagrid";
+            this.datagrid.ReadOnly = true;
             this.datagrid.RowHeadersVisible = false;
             this.datagrid.RowHeadersWidth = 51;
             this.datagrid.RowTemplate.Height = 24;
+            this.datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagrid.Size = new System.Drawing.Size(852, 643);
             this.datagrid.TabIndex = 1;
+            this.datagrid.SelectionChanged += new System.EventHandler(this.datagrid_SelectionChanged);
             // 
             // gridHeaderLabel
             // 
@@ -287,14 +290,14 @@
         private System.Windows.Forms.Label gridHeaderLabel;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView datagrid;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox phoneText;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox emailText;
+        private System.Windows.Forms.TextBox lastNameText;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox firstNameText;
+        private System.Windows.Forms.TextBox idText;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
     }

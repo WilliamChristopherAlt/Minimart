@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.payMethodIDCombobox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.employeeIDCombobox = new System.Windows.Forms.ComboBox();
+            this.customerIDCombobox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.datePicker = new System.Windows.Forms.DateTimePicker();
+            this.idText = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.clearButton = new System.Windows.Forms.Button();
@@ -56,14 +56,14 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox3);
+            this.groupBox1.Controls.Add(this.payMethodIDCombobox);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.employeeIDCombobox);
+            this.groupBox1.Controls.Add(this.customerIDCombobox);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.datePicker);
+            this.groupBox1.Controls.Add(this.idText);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.clearButton);
@@ -76,14 +76,14 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // comboBox3
+            // payMethodIDCombobox
             // 
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(181, 236);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(133, 28);
-            this.comboBox3.TabIndex = 37;
+            this.payMethodIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.payMethodIDCombobox.FormattingEnabled = true;
+            this.payMethodIDCombobox.Location = new System.Drawing.Point(170, 236);
+            this.payMethodIDCombobox.Name = "payMethodIDCombobox";
+            this.payMethodIDCombobox.Size = new System.Drawing.Size(144, 28);
+            this.payMethodIDCombobox.TabIndex = 37;
             // 
             // label3
             // 
@@ -91,27 +91,27 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 236);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(169, 22);
+            this.label3.Size = new System.Drawing.Size(158, 22);
             this.label3.TabIndex = 36;
-            this.label3.Text = "Payement method";
+            this.label3.Text = "Payment method";
             // 
-            // comboBox2
+            // employeeIDCombobox
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(133, 163);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(181, 28);
-            this.comboBox2.TabIndex = 35;
+            this.employeeIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.employeeIDCombobox.FormattingEnabled = true;
+            this.employeeIDCombobox.Location = new System.Drawing.Point(133, 163);
+            this.employeeIDCombobox.Name = "employeeIDCombobox";
+            this.employeeIDCombobox.Size = new System.Drawing.Size(181, 28);
+            this.employeeIDCombobox.TabIndex = 35;
             // 
-            // comboBox1
+            // customerIDCombobox
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(133, 129);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(181, 28);
-            this.comboBox1.TabIndex = 34;
+            this.customerIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customerIDCombobox.FormattingEnabled = true;
+            this.customerIDCombobox.Location = new System.Drawing.Point(133, 129);
+            this.customerIDCombobox.Name = "customerIDCombobox";
+            this.customerIDCombobox.Size = new System.Drawing.Size(181, 28);
+            this.customerIDCombobox.TabIndex = 34;
             // 
             // label5
             // 
@@ -133,26 +133,26 @@
             this.label6.TabIndex = 32;
             this.label6.Text = "Customer ID";
             // 
-            // dateTimePicker1
+            // datePicker
             // 
-            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(133, 62);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(181, 27);
-            this.dateTimePicker1.TabIndex = 30;
-            this.dateTimePicker1.TabStop = false;
+            this.datePicker.CustomFormat = "dd/MM/yyyy";
+            this.datePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datePicker.Location = new System.Drawing.Point(133, 62);
+            this.datePicker.Name = "datePicker";
+            this.datePicker.Size = new System.Drawing.Size(181, 27);
+            this.datePicker.TabIndex = 30;
+            this.datePicker.TabStop = false;
             // 
-            // textBox1
+            // idText
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(133, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 27);
-            this.textBox1.TabIndex = 7;
+            this.idText.Enabled = false;
+            this.idText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idText.HideSelection = false;
+            this.idText.Location = new System.Drawing.Point(133, 29);
+            this.idText.Name = "idText";
+            this.idText.Size = new System.Drawing.Size(181, 27);
+            this.idText.TabIndex = 7;
             // 
             // label2
             // 
@@ -248,11 +248,14 @@
             this.datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid.Location = new System.Drawing.Point(23, 67);
             this.datagrid.Name = "datagrid";
+            this.datagrid.ReadOnly = true;
             this.datagrid.RowHeadersVisible = false;
             this.datagrid.RowHeadersWidth = 51;
             this.datagrid.RowTemplate.Height = 24;
+            this.datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagrid.Size = new System.Drawing.Size(852, 643);
             this.datagrid.TabIndex = 1;
+            this.datagrid.SelectionChanged += new System.EventHandler(this.datagrid_SelectionChanged);
             // 
             // gridHeaderLabel
             // 
@@ -294,14 +297,14 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView datagrid;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox idText;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DateTimePicker datePicker;
+        private System.Windows.Forms.ComboBox employeeIDCombobox;
+        private System.Windows.Forms.ComboBox customerIDCombobox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox payMethodIDCombobox;
     }
 }

@@ -241,15 +241,15 @@
             this.datagrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagrid.Location = new System.Drawing.Point(23, 67);
-            this.datagrid.MultiSelect = false;
             this.datagrid.Name = "datagrid";
+            this.datagrid.ReadOnly = true;
             this.datagrid.RowHeadersVisible = false;
             this.datagrid.RowHeadersWidth = 51;
             this.datagrid.RowTemplate.Height = 24;
             this.datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagrid.Size = new System.Drawing.Size(852, 643);
             this.datagrid.TabIndex = 1;
-            this.datagrid.SelectionChanged += this.datagrid_SelectionChanged;
+            this.datagrid.SelectionChanged += new System.EventHandler(this.datagrid_SelectionChanged);
             // 
             // gridHeaderLabel
             // 

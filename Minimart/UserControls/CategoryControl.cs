@@ -1,42 +1,46 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
+using Minimart.DatabaseAccess;  // For MinimartDbContext
 
 namespace Minimart.UserControls
 {
     public partial class CategoryControl : UserControl
     {
         private CategoryService service;
+
+        // Updated constructor to pass context to CategoryService
         public CategoryControl()
         {
             InitializeComponent();
-            service = new CategoryService();
+            service = new CategoryService(); // Pass context to the CategoryService constructor
             LoadData();
         }
 
-        public void LoadData()
+        // Method to load data into the DataGridView
+        public async void LoadData()
         {
-            var rows = service.GetAll();
+            var rows = await service.GetAllAsync();  // Call async method for fetching all categories
             datagrid.DataSource = rows;
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        // Method to add a new category
+        private async void addButton_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(descText.Text))
             {
                 var newCategory = new Category
                 {
-                    Name = nameText.Text,
-                    Description = descText.Text
+                    CategoryName = nameText.Text,
+                    CategoryDescription = descText.Text
                 };
 
-                service.Add(newCategory);
+                await service.AddAsync(newCategory);  // Use the async method for adding
 
-                LoadData();
-
-                nameText.Clear();
-                descText.Clear();
+                LoadData();  // Refresh data grid after adding
+                ClearFields();
             }
             else
             {
@@ -44,26 +48,23 @@ namespace Minimart.UserControls
             }
         }
 
-
-        private void updateButton_Click(object sender, EventArgs e)
+        // Method to update an existing category
+        private async void updateButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
             {
                 var selectedRow = datagrid.SelectedRows[0];
                 var categoryId = (int)selectedRow.Cells["CategoryID"].Value;
 
-                var categoryToUpdate = service.GetById(categoryId);
+                var categoryToUpdate = await service.GetByIdAsync(categoryId);  // Fetch category by ID asynchronously
                 if (categoryToUpdate != null)
                 {
-                    categoryToUpdate.Name = nameText.Text;
-                    categoryToUpdate.Description = descText.Text;
+                    categoryToUpdate.CategoryName = nameText.Text;
+                    categoryToUpdate.CategoryDescription = descText.Text;
 
-                    service.Update(categoryToUpdate);
+                    await service.UpdateAsync(categoryToUpdate);  // Update asynchronously
 
                     LoadData();
-
-                    nameText.Clear();
-                    descText.Clear();
                 }
                 else
                 {
@@ -76,15 +77,14 @@ namespace Minimart.UserControls
             }
         }
 
-
-        private void deleteButton_Click(object sender, EventArgs e)
+        // Method to delete a category
+        private async void deleteButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
             {
                 var selectedRow = datagrid.SelectedRows[0];
                 var categoryId = (int)selectedRow.Cells["CategoryID"].Value;
 
-                // Display confirmation message with a warning about dependent data
                 var confirmResult = MessageBox.Show(
                     "Deleting this category will also remove any data that depends on it.\n\nAre you sure you want to continue?",
                     "Confirm Deletion",
@@ -93,9 +93,9 @@ namespace Minimart.UserControls
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    service.Delete(categoryId);
+                    await service.DeleteAsync(categoryId);  // Delete asynchronously
                     LoadData();  // Refresh data grid after deletion
-                    //MessageBox.Show("Category deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearFields();
                 }
             }
             else
@@ -104,25 +104,29 @@ namespace Minimart.UserControls
             }
         }
 
+        // Method to clear the input fields
         private void clearButton_Click(object sender, EventArgs e)
+        {
+            ClearFields();
+        }
+
+        // Helper method to clear text fields
+        private void ClearFields()
         {
             idText.Clear();
             nameText.Clear();
             descText.Clear();
         }
 
-
+        // Method to update the text fields when a row is selected in the DataGridView
         private void datagrid_SelectionChanged(object sender, EventArgs e)
         {
             if (datagrid.CurrentRow != null && datagrid.CurrentRow.Index >= 0)
             {
-                // Ensure the row is valid before accessing cells
                 var selectedRow = datagrid.CurrentRow;
-
-                // Transfer data from selected row to textboxes
                 idText.Text = selectedRow.Cells["CategoryID"].Value?.ToString();
-                nameText.Text = selectedRow.Cells["Name"].Value?.ToString();
-                descText.Text = selectedRow.Cells["Description"].Value?.ToString();
+                nameText.Text = selectedRow.Cells["CategoryName"].Value?.ToString();  // Make sure column name is correct
+                descText.Text = selectedRow.Cells["CategoryDescription"].Value?.ToString();
             }
         }
     }

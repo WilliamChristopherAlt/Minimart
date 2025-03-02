@@ -33,6 +33,9 @@
             this.formContainer = new System.Windows.Forms.Panel();
             this.categoryButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.adminRoleButton = new System.Windows.Forms.Button();
+            this.paymentMethodButton = new System.Windows.Forms.Button();
+            this.employeeRoleButton = new System.Windows.Forms.Button();
             this.saleDetailButton = new System.Windows.Forms.Button();
             this.saleButton = new System.Windows.Forms.Button();
             this.employeeButton = new System.Windows.Forms.Button();
@@ -42,6 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.roleLabel = new System.Windows.Forms.Label();
             this.supplierButton = new System.Windows.Forms.Button();
+            this.measureUnitButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +78,6 @@
             this.formContainer.Name = "formContainer";
             this.formContainer.Size = new System.Drawing.Size(1289, 757);
             this.formContainer.TabIndex = 2;
-            this.formContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.formContainer_Paint);
             // 
             // categoryButton
             // 
@@ -92,6 +95,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Controls.Add(this.measureUnitButton);
+            this.panel1.Controls.Add(this.adminRoleButton);
+            this.panel1.Controls.Add(this.paymentMethodButton);
+            this.panel1.Controls.Add(this.employeeRoleButton);
             this.panel1.Controls.Add(this.saleDetailButton);
             this.panel1.Controls.Add(this.saleButton);
             this.panel1.Controls.Add(this.employeeButton);
@@ -109,12 +116,51 @@
             this.panel1.Size = new System.Drawing.Size(234, 757);
             this.panel1.TabIndex = 5;
             // 
+            // adminRoleButton
+            // 
+            this.adminRoleButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.adminRoleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminRoleButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.adminRoleButton.Location = new System.Drawing.Point(17, 570);
+            this.adminRoleButton.Name = "adminRoleButton";
+            this.adminRoleButton.Size = new System.Drawing.Size(205, 43);
+            this.adminRoleButton.TabIndex = 16;
+            this.adminRoleButton.Text = "Admin Roles";
+            this.adminRoleButton.UseVisualStyleBackColor = false;
+            this.adminRoleButton.Click += new System.EventHandler(this.adminRoleButton_Click);
+            // 
+            // paymentMethodButton
+            // 
+            this.paymentMethodButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.paymentMethodButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paymentMethodButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.paymentMethodButton.Location = new System.Drawing.Point(17, 423);
+            this.paymentMethodButton.Name = "paymentMethodButton";
+            this.paymentMethodButton.Size = new System.Drawing.Size(205, 43);
+            this.paymentMethodButton.TabIndex = 15;
+            this.paymentMethodButton.Text = "Payment Methods";
+            this.paymentMethodButton.UseVisualStyleBackColor = false;
+            this.paymentMethodButton.Click += new System.EventHandler(this.paymentMethodButton_Click);
+            // 
+            // employeeRoleButton
+            // 
+            this.employeeRoleButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.employeeRoleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.employeeRoleButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.employeeRoleButton.Location = new System.Drawing.Point(17, 325);
+            this.employeeRoleButton.Name = "employeeRoleButton";
+            this.employeeRoleButton.Size = new System.Drawing.Size(205, 43);
+            this.employeeRoleButton.TabIndex = 14;
+            this.employeeRoleButton.Text = "Employee Roles";
+            this.employeeRoleButton.UseVisualStyleBackColor = false;
+            this.employeeRoleButton.Click += new System.EventHandler(this.employeeRoleButton_Click);
+            // 
             // saleDetailButton
             // 
             this.saleDetailButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.saleDetailButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saleDetailButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.saleDetailButton.Location = new System.Drawing.Point(17, 374);
+            this.saleDetailButton.Location = new System.Drawing.Point(17, 521);
             this.saleDetailButton.Name = "saleDetailButton";
             this.saleDetailButton.Size = new System.Drawing.Size(205, 43);
             this.saleDetailButton.TabIndex = 13;
@@ -127,7 +173,7 @@
             this.saleButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.saleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saleButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.saleButton.Location = new System.Drawing.Point(17, 325);
+            this.saleButton.Location = new System.Drawing.Point(17, 472);
             this.saleButton.Name = "saleButton";
             this.saleButton.Size = new System.Drawing.Size(205, 43);
             this.saleButton.TabIndex = 12;
@@ -140,7 +186,7 @@
             this.employeeButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.employeeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.employeeButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.employeeButton.Location = new System.Drawing.Point(17, 276);
+            this.employeeButton.Location = new System.Drawing.Point(17, 374);
             this.employeeButton.Name = "employeeButton";
             this.employeeButton.Size = new System.Drawing.Size(205, 43);
             this.employeeButton.TabIndex = 11;
@@ -153,7 +199,7 @@
             this.customerButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.customerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customerButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.customerButton.Location = new System.Drawing.Point(17, 227);
+            this.customerButton.Location = new System.Drawing.Point(17, 276);
             this.customerButton.Name = "customerButton";
             this.customerButton.Size = new System.Drawing.Size(205, 43);
             this.customerButton.TabIndex = 10;
@@ -166,7 +212,7 @@
             this.adminButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.adminButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.adminButton.Location = new System.Drawing.Point(17, 423);
+            this.adminButton.Location = new System.Drawing.Point(17, 619);
             this.adminButton.Name = "adminButton";
             this.adminButton.Size = new System.Drawing.Size(205, 43);
             this.adminButton.TabIndex = 9;
@@ -179,7 +225,7 @@
             this.productTypeButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.productTypeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productTypeButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.productTypeButton.Location = new System.Drawing.Point(17, 178);
+            this.productTypeButton.Location = new System.Drawing.Point(17, 227);
             this.productTypeButton.Name = "productTypeButton";
             this.productTypeButton.Size = new System.Drawing.Size(205, 43);
             this.productTypeButton.TabIndex = 7;
@@ -222,6 +268,19 @@
             this.supplierButton.UseVisualStyleBackColor = false;
             this.supplierButton.Click += new System.EventHandler(this.supplierButton_Click);
             // 
+            // measureUnitButton
+            // 
+            this.measureUnitButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.measureUnitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.measureUnitButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.measureUnitButton.Location = new System.Drawing.Point(17, 178);
+            this.measureUnitButton.Name = "measureUnitButton";
+            this.measureUnitButton.Size = new System.Drawing.Size(205, 43);
+            this.measureUnitButton.TabIndex = 17;
+            this.measureUnitButton.Text = "Measurement Units";
+            this.measureUnitButton.UseVisualStyleBackColor = false;
+            this.measureUnitButton.Click += new System.EventHandler(this.measureUnitButton_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -255,6 +314,10 @@
         private System.Windows.Forms.Button customerButton;
         private System.Windows.Forms.Button adminButton;
         private System.Windows.Forms.Button productTypeButton;
+        private System.Windows.Forms.Button employeeRoleButton;
+        private System.Windows.Forms.Button adminRoleButton;
+        private System.Windows.Forms.Button paymentMethodButton;
+        private System.Windows.Forms.Button measureUnitButton;
     }
 }
 

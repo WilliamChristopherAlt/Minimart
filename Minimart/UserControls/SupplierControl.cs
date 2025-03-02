@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
+using Minimart.DatabaseAccess;
 
 namespace Minimart.UserControls
 {
@@ -16,52 +18,52 @@ namespace Minimart.UserControls
             LoadData();
         }
 
-        public void LoadData()
+        public async void LoadData()
         {
-            var rows = service.GetAll();
+            var rows = await service.GetAllAsync();
             datagrid.DataSource = rows;
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private async void addButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(phoneText.Text))
+            if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(emailText.Text) &&
+                !string.IsNullOrEmpty(phoneText.Text) && !string.IsNullOrEmpty(addressText.Text))
             {
                 var newSupplier = new Supplier
                 {
-                    Name = nameText.Text,
-                    PhoneNumber = phoneText.Text,
-                    Address = addressText.Text,
-                    Email = emailText.Text
+                    SupplierName = nameText.Text,
+                    SupplierEmail = emailText.Text,
+                    SupplierPhoneNumber = phoneText.Text,
+                    SupplierAddress = addressText.Text
                 };
 
-                service.Add(newSupplier);
+                await service.AddAsync(newSupplier);
                 LoadData();
                 ClearFields();
             }
             else
             {
-                MessageBox.Show("Please fill in Name and Phone fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void updateButton_Click(object sender, EventArgs e)
+        private async void updateButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
             {
                 var selectedRow = datagrid.SelectedRows[0];
                 var supplierId = (int)selectedRow.Cells["SupplierID"].Value;
 
-                var supplierToUpdate = service.GetById(supplierId);
+                var supplierToUpdate = await service.GetByIdAsync(supplierId);
                 if (supplierToUpdate != null)
                 {
-                    supplierToUpdate.Name = nameText.Text;
-                    supplierToUpdate.PhoneNumber = phoneText.Text;
-                    supplierToUpdate.Address = addressText.Text;
-                    supplierToUpdate.Email = emailText.Text;
+                    supplierToUpdate.SupplierName = nameText.Text;
+                    supplierToUpdate.SupplierEmail = emailText.Text;
+                    supplierToUpdate.SupplierPhoneNumber = phoneText.Text;
+                    supplierToUpdate.SupplierAddress = addressText.Text;
 
-                    service.Update(supplierToUpdate);
+                    await service.UpdateAsync(supplierToUpdate);
                     LoadData();
-                    ClearFields();
                 }
                 else
                 {
@@ -74,7 +76,7 @@ namespace Minimart.UserControls
             }
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private async void deleteButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
             {
@@ -89,8 +91,9 @@ namespace Minimart.UserControls
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    service.Delete(supplierId);
+                    await service.DeleteAsync(supplierId);
                     LoadData();
+                    ClearFields();
                 }
             }
             else
@@ -104,26 +107,26 @@ namespace Minimart.UserControls
             ClearFields();
         }
 
+        private void ClearFields()
+        {
+            idText.Clear();
+            nameText.Clear();
+            emailText.Clear();
+            phoneText.Clear();
+            addressText.Clear();
+        }
+
         private void datagrid_SelectionChanged(object sender, EventArgs e)
         {
             if (datagrid.CurrentRow != null && datagrid.CurrentRow.Index >= 0)
             {
                 var selectedRow = datagrid.CurrentRow;
                 idText.Text = selectedRow.Cells["SupplierID"].Value?.ToString();
-                nameText.Text = selectedRow.Cells["Name"].Value?.ToString();
-                phoneText.Text = selectedRow.Cells["PhoneNumber"].Value?.ToString();
-                addressText.Text = selectedRow.Cells["Address"].Value?.ToString();
-                emailText.Text = selectedRow.Cells["Email"].Value?.ToString();
+                nameText.Text = selectedRow.Cells["SupplierName"].Value?.ToString();
+                emailText.Text = selectedRow.Cells["SupplierEmail"].Value?.ToString();
+                phoneText.Text = selectedRow.Cells["SupplierPhoneNumber"].Value?.ToString();
+                addressText.Text = selectedRow.Cells["SupplierAddress"].Value?.ToString();
             }
-        }
-
-        private void ClearFields()
-        {
-            idText.Clear();
-            nameText.Clear();
-            phoneText.Clear();
-            addressText.Clear();
-            emailText.Clear();
         }
     }
 }

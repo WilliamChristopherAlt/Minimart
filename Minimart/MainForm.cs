@@ -65,9 +65,24 @@ namespace Minimart
             LoadView(new AdminControl());
         }
 
-        private void formContainer_Paint(object sender, PaintEventArgs e)
+        private void employeeRoleButton_Click(object sender, EventArgs e)
         {
+            LoadView(new EmployeeRoleControl());
+        }
 
+        private void paymentMethodButton_Click(object sender, EventArgs e)
+        {
+            LoadView(new PaymentMethodControl());
+        }
+
+        private void adminRoleButton_Click(object sender, EventArgs e)
+        {
+            LoadView(new AdminRoleControl());
+        }
+
+        private void measureUnitButton_Click(object sender, EventArgs e)
+        {
+            LoadView(new MeasurementUnitControl());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Minimart.UserControls
 {
-    partial class SaleDetailControl
+    partial class PaymentMethodControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,12 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.quantityNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.productTypeIDCombobox = new System.Windows.Forms.ComboBox();
-            this.saleIDCombobox = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.nameText = new System.Windows.Forms.TextBox();
             this.idText = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.clearButton = new System.Windows.Forms.Button();
@@ -48,19 +44,14 @@
             this.gridHeaderLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantityNumericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.quantityNumericUpDown);
-            this.groupBox1.Controls.Add(this.productTypeIDCombobox);
-            this.groupBox1.Controls.Add(this.saleIDCombobox);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.nameText);
             this.groupBox1.Controls.Add(this.idText);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.clearButton);
@@ -73,83 +64,39 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // quantityNumericUpDown
+            // nameText
             // 
-            this.quantityNumericUpDown.DecimalPlaces = 2;
-            this.quantityNumericUpDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quantityNumericUpDown.Location = new System.Drawing.Point(163, 134);
-            this.quantityNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.quantityNumericUpDown.Name = "quantityNumericUpDown";
-            this.quantityNumericUpDown.Size = new System.Drawing.Size(148, 27);
-            this.quantityNumericUpDown.TabIndex = 34;
-            // 
-            // productTypeIDCombobox
-            // 
-            this.productTypeIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.productTypeIDCombobox.FormattingEnabled = true;
-            this.productTypeIDCombobox.Location = new System.Drawing.Point(163, 96);
-            this.productTypeIDCombobox.Name = "productTypeIDCombobox";
-            this.productTypeIDCombobox.Size = new System.Drawing.Size(148, 28);
-            this.productTypeIDCombobox.TabIndex = 33;
-            // 
-            // saleIDCombobox
-            // 
-            this.saleIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saleIDCombobox.FormattingEnabled = true;
-            this.saleIDCombobox.Location = new System.Drawing.Point(163, 62);
-            this.saleIDCombobox.Name = "saleIDCombobox";
-            this.saleIDCombobox.Size = new System.Drawing.Size(148, 28);
-            this.saleIDCombobox.TabIndex = 32;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 139);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 22);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Quantity";
+            this.nameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameText.Location = new System.Drawing.Point(123, 60);
+            this.nameText.Name = "nameText";
+            this.nameText.Size = new System.Drawing.Size(188, 27);
+            this.nameText.TabIndex = 8;
             // 
             // idText
             // 
             this.idText.Enabled = false;
             this.idText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.idText.HideSelection = false;
-            this.idText.Location = new System.Drawing.Point(163, 29);
+            this.idText.Location = new System.Drawing.Point(123, 27);
             this.idText.Name = "idText";
-            this.idText.Size = new System.Drawing.Size(148, 27);
+            this.idText.Size = new System.Drawing.Size(188, 27);
             this.idText.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 102);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 22);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Product Type ID";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 68);
+            this.label2.Location = new System.Drawing.Point(6, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 22);
+            this.label2.Size = new System.Drawing.Size(61, 22);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Sale ID";
+            this.label2.Text = "Name";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 34);
+            this.label1.Location = new System.Drawing.Point(6, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 22);
             this.label1.TabIndex = 4;
@@ -244,21 +191,20 @@
             this.gridHeaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gridHeaderLabel.Location = new System.Drawing.Point(18, 27);
             this.gridHeaderLabel.Name = "gridHeaderLabel";
-            this.gridHeaderLabel.Size = new System.Drawing.Size(243, 29);
+            this.gridHeaderLabel.Size = new System.Drawing.Size(309, 29);
             this.gridHeaderLabel.TabIndex = 0;
-            this.gridHeaderLabel.Text = "Data of Sale Details";
+            this.gridHeaderLabel.Text = "Data of Payment Methods";
             // 
-            // SaleDetailControl
+            // PaymentMethodControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "SaleDetailControl";
+            this.Name = "PaymentMethodControl";
             this.Size = new System.Drawing.Size(1276, 763);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.quantityNumericUpDown)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid)).EndInit();
@@ -279,12 +225,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView datagrid;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox nameText;
         private System.Windows.Forms.TextBox idText;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox productTypeIDCombobox;
-        private System.Windows.Forms.ComboBox saleIDCombobox;
-        private System.Windows.Forms.NumericUpDown quantityNumericUpDown;
     }
 }

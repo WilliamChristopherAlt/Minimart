@@ -1,35 +1,36 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Minimart.Entities
 {
     public class Category
     {
         public int CategoryID { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
     }
 
     public class Supplier
     {
         public int SupplierID { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
+        public string SupplierName { get; set; }
+        public string SupplierPhoneNumber { get; set; }
+        public string SupplierAddress { get; set; }
+        public string SupplierEmail { get; set; }
     }
 
     public class MeasurementUnit
     {
         public int MeasurementUnitID { get; set; }
         public string UnitName { get; set; }
-        public string Description { get; set; }
+        public string UnitDescription { get; set; }
     }
 
     public class ProductType
     {
         public int ProductTypeID { get; set; }
         public string ProductName { get; set; }
-        public string Description { get; set; }
+        public string ProductDescription { get; set; }
         public int CategoryID { get; set; }
         public int SupplierID { get; set; }
         public decimal Price { get; set; }
@@ -50,13 +51,17 @@ namespace Minimart.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+
+        public string FullName => $"{FirstName} {LastName} ({CustomerID})";
     }
+
 
     public class EmployeeRole
     {
+        [Key]
         public int RoleID { get; set; }
         public string RoleName { get; set; }
-        public string Description { get; set; }
+        public string RoleDescription { get; set; }
     }
 
     public class Employee
@@ -64,19 +69,24 @@ namespace Minimart.Entities
         public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Gender { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string CitizenID { get; set; }
         public decimal? Salary { get; set; }
         public DateTime HireDate { get; set; }
         public int RoleID { get; set; }
 
         public EmployeeRole Role { get; set; }
+
+        public string FullName => $"{FirstName} {LastName} ({EmployeeID})";
     }
 
     public class PaymentMethod
     {
         public int PaymentMethodID { get; set; }
-        public string PaymentMethodName { get; set; }
+        public string MethodName { get; set; }
     }
 
     public class Sale
@@ -90,6 +100,8 @@ namespace Minimart.Entities
         public Customer Customer { get; set; }
         public Employee Employee { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+
+        public string FormattedSale => $"{SaleDate:dd/MM/yyyy} ({SaleID})";
     }
 
     public class SaleDetail
@@ -98,45 +110,40 @@ namespace Minimart.Entities
         public int SaleID { get; set; }
         public int ProductTypeID { get; set; }
         public decimal Quantity { get; set; }
-        public int MeasurementUnitID { get; set; }
 
         public Sale Sale { get; set; }
         public ProductType ProductType { get; set; }
-        public MeasurementUnit MeasurementUnit { get; set; }
-
-        public decimal GetTotalAmount()
-        {
-            return Quantity * ProductType.Price;
-        }
     }
 
     public class AdminRole
     {
         public int AdminRoleID { get; set; }
         public string RoleName { get; set; }
-        public string Description { get; set; }
-        public bool CanView_Categories { get; set; }
-        public bool CanEdit_Categories { get; set; }
-        public bool CanView_Suppliers { get; set; }
-        public bool CanEdit_Suppliers { get; set; }
-        public bool CanView_MeasurementUnits { get; set; }
-        public bool CanEdit_MeasurementUnits { get; set; }
-        public bool CanView_ProductTypes { get; set; }
-        public bool CanEdit_ProductTypes { get; set; }
-        public bool CanView_Customers { get; set; }
-        public bool CanEdit_Customers { get; set; }
-        public bool CanView_EmployeeRoles { get; set; }
-        public bool CanEdit_EmployeeRoles { get; set; }
-        public bool CanView_Employees { get; set; }
-        public bool CanEdit_Employees { get; set; }
-        public bool CanView_Sales { get; set; }
-        public bool CanEdit_Sales { get; set; }
-        public bool CanView_SaleDetails { get; set; }
-        public bool CanEdit_SaleDetails { get; set; }
-        public bool CanView_AdminRoles { get; set; }
-        public bool CanEdit_AdminRoles { get; set; }
-        public bool CanView_Admins { get; set; }
-        public bool CanEdit_Admins { get; set; }
+        public string RoleDescription { get; set; }
+        public bool CanViewCategories { get; set; }
+        public bool CanEditCategories { get; set; }
+        public bool CanViewSuppliers { get; set; }
+        public bool CanEditSuppliers { get; set; }
+        public bool CanViewMeasurementUnits { get; set; }
+        public bool CanEditMeasurementUnits { get; set; }
+        public bool CanViewProductTypes { get; set; }
+        public bool CanEditProductTypes { get; set; }
+        public bool CanViewCustomers { get; set; }
+        public bool CanEditCustomers { get; set; }
+        public bool CanViewEmployeeRoles { get; set; }
+        public bool CanEditEmployeeRoles { get; set; }
+        public bool CanViewEmployees { get; set; }
+        public bool CanEditEmployees { get; set; }
+        public bool CanViewPaymentMethods { get; set; }
+        public bool CanEditPaymentMethods { get; set; }
+        public bool CanViewSales { get; set; }
+        public bool CanEditSales { get; set; }
+        public bool CanViewSaleDetails { get; set; }
+        public bool CanEditSaleDetails { get; set; }
+        public bool CanViewAdminRoles { get; set; }
+        public bool CanEditAdminRoles { get; set; }
+        public bool CanViewAdmins { get; set; }
+        public bool CanEditAdmins { get; set; }
     }
 
     public class Admin
