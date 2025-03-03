@@ -107,7 +107,7 @@
             this.tableButtonPanel.Controls.Add(this.customerButton);
             this.tableButtonPanel.Controls.Add(this.adminButton);
             this.tableButtonPanel.Controls.Add(this.productTypeButton);
-            this.tableButtonPanel.Controls.Add(this.label3);
+            this.tableButtonPanel.Controls.Add(this.label3); 
             this.tableButtonPanel.Controls.Add(this.roleLabel);
             this.tableButtonPanel.Controls.Add(this.supplierButton);
             this.tableButtonPanel.Controls.Add(this.categoryButton);
