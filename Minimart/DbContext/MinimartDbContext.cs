@@ -16,7 +16,7 @@ namespace Minimart.DatabaseAccess
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleDetail> SaleDetails { get; set; }
-        public DbSet<AdminRole> AdminRoles { get; set; }
+        public DbSet<AdminRole> AdminRoles { get; set; }  
         public DbSet<Admin> Admins { get; set; }
 
         // Parameterless constructor (for scenarios where no configuration is passed in)
