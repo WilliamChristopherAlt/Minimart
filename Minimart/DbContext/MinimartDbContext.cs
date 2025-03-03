@@ -19,7 +19,7 @@ namespace Minimart.DatabaseAccess
         public DbSet<AdminRole> AdminRoles { get; set; }  
         public DbSet<Admin> Admins { get; set; }
 
-        // Parameterless constructor (for scenarios where no configuration is pas sed in)
+        // Parameterless constructor (for scenarios where no configuration is pas   sed in)
         public MinimartDbContext() { }
 
         // Constructor that accepts DbContextOptions to be passed from the DI container
