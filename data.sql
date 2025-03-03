@@ -13,28 +13,28 @@ INSERT INTO Categories (CategoryName, CategoryDescription) VALUES
 ('Health', 'Vitamins, supplements, and health-related items');
 
 INSERT INTO Suppliers (SupplierName, SupplierPhoneNumber, SupplierAddress, SupplierEmail) VALUES
-('Fresh Foods Supplier', '123-456-7890', '123 Fresh St, Food City', 'contact@freshfoods.com'),
-('Snack World', '234-567-8901', '456 Snack Ave, Snacktown', 'info@snackworld.com'),
-('Dairy Best', '345-678-9012', '789 Dairy Rd, Milktown', 'sales@dairybest.com'),
-('Fruit Farm', '456-789-0123', '101 Orchard Dr, Fruitville', 'orders@fruitfarm.com'),
-('Veggie Co', '567-890-1234', '202 Green Ln, Veggietown', 'support@veggieco.com'),
-('Frozen Delights', '678-901-2345', '303 Ice Cream Blvd, Freeze City', 'contact@frozendelights.com'),
-('Bake It Fresh', '789-012-3456', '404 Cake Rd, Bakerytown', 'hello@bakeitfresh.com'),
-('Beauty Plus', '890-123-4567', '505 Beauty Ln, Glamour City', 'service@beautyplus.com'),
-('Clean Sweep', '901-234-5678', '606 Clean Ave, Sanitize City', 'info@cleansweep.com'),
-('Wellness Shop', '012-345-6789', '707 Health Rd, Wellness City', 'customerservice@wellnessshop.com');
+('Fresh Foods Supplier', '0123456789', '123 Fresh St, Food City', 'contact@freshfoods.com'),
+('Snack World', '0234567890', '456 Snack Ave, Snacktown', 'info@snackworld.com'),
+('Dairy Best', '0345678901', '789 Dairy Rd, Milktown', 'sales@dairybest.com'),
+('Fruit Farm', '0456789012', '101 Orchard Dr, Fruitville', 'orders@fruitfarm.com'),
+('Veggie Co', '0567890123', '202 Green Ln, Veggietown', 'support@veggieco.com'),
+('Frozen Delights', '0678901234', '303 Ice Cream Blvd, Freeze City', 'contact@frozendelights.com'),
+('Bake It Fresh', '0789012345', '404 Cake Rd, Bakerytown', 'hello@bakeitfresh.com'),
+('Beauty Plus', '0890123456', '505 Beauty Ln, Glamour City', 'service@beautyplus.com'),
+('Clean Sweep', '0901234567', '606 Clean Ave, Sanitize City', 'info@cleansweep.com'),
+('Wellness Shop', '0102345678', '707 Health Rd, Wellness City', 'customerservice@wellnessshop.com');
 
-INSERT INTO MeasurementUnits (UnitName, UnitDescription) VALUES
-('kg', 'Kilogram - Weight measurement'),
-('liters', 'Liter - Volume measurement'),
-('pcs', 'Pieces - Unit count'),
-('g', 'Gram - Weight measurement'),
-('ml', 'Milliliter - Volume measurement'),
-('box', 'Box - A box containing multiple items'),
-('m', 'Meter - Length measurement'),
-('cm', 'Centimeter - Length measurement'),
-('yard', 'Yard - Length measurement'),
-('inch', 'Inch - Length measurement');
+INSERT INTO MeasurementUnits (UnitName, UnitDescription, IsContinuous) VALUES
+('kg', 'Kilogram - Weight measurement', 1),
+('liters', 'Liter - Volume measurement', 1),
+('pcs', 'Pieces - Unit count', 0),
+('g', 'Gram - Weight measurement', 1),
+('ml', 'Milliliter - Volume measurement', 1),
+('box', 'Box - A box containing multiple items', 0),
+('m', 'Meter - Length measurement', 1),
+('cm', 'Centimeter - Length measurement', 1),
+('yard', 'Yard - Length measurement', 1),
+('inch', 'Inch - Length measurement', 1);
 
 -- Insert 15 ProductTypes into ProductTypes Table
 INSERT INTO ProductTypes (ProductName, ProductDescription, CategoryID, SupplierID, Price, StockAmount, MeasurementUnitID)
@@ -57,16 +57,16 @@ VALUES
 GO
 
 INSERT INTO Customers (FirstName, LastName, Email, PhoneNumber) VALUES
-('Sophia', 'Taylor', 'sophia.taylor@email.com', '555-2001'),
-('Liam', 'Martin', 'liam.martin@email.com', '555-2002'),
-('Olivia', 'Anderson', 'olivia.anderson@email.com', '555-2003'),
-('Noah', 'Thomas', 'noah.thomas@email.com', '555-2004'),
-('Ava', 'Jackson', 'ava.jackson@email.com', '555-2005'),
-('James', 'White', 'james.white@email.com', '555-2006'),
-('Isabella', 'Harris', 'isabella.harris@email.com', '555-2007'),
-('Mason', 'Clark', 'mason.clark@email.com', '555-2008'),
-('Mia', 'Rodriguez', 'mia.rodriguez@email.com', '555-2009'),
-('Ethan', 'Lewis', 'ethan.lewis@email.com', '555-2010');
+('Sophia', 'Taylor', 'sophia.taylor@email.com', '0555202001'),
+('Liam', 'Martin', 'liam.martin@email.com', '0555202002'),
+('Olivia', 'Anderson', 'olivia.anderson@email.com', '0555202003'),
+('Noah', 'Thomas', 'noah.thomas@email.com', '0555202004'),
+('Ava', 'Jackson', 'ava.jackson@email.com', '0555202005'),
+('James', 'White', 'james.white@email.com', '0555202006'),
+('Isabella', 'Harris', 'isabella.harris@email.com', '0555202007'),
+('Mason', 'Clark', 'mason.clark@email.com', '0555202008'),
+('Mia', 'Rodriguez', 'mia.rodriguez@email.com', '0555202009'),
+('Ethan', 'Lewis', 'ethan.lewis@email.com', '0555202010');
 
 INSERT INTO EmployeeRoles (RoleName, RoleDescription)
 VALUES 
@@ -85,29 +85,27 @@ GO
 -- Insert 20 Employees
 INSERT INTO Employees (FirstName, LastName, Email, PhoneNumber, Gender, BirthDate, CitizenID, Salary, HireDate, RoleID)
 VALUES 
-    ('John', 'Doe', 'john.doe@example.com', '123-456-7890', 'Male', '1985-07-12', 'A123456789', 35000.00, '2022-01-15', 1),  -- Sales Associate
-    ('Jane', 'Smith', 'jane.smith@example.com', '123-456-7891', 'Female', '1990-03-20', 'B987654321', 40000.00, '2021-03-20', 2),  -- Inventory Manager
-    ('Michael', 'Johnson', 'michael.johnson@example.com', '123-456-7892', 'Male', '1983-08-05', 'C123987654', 32000.00, '2023-05-10', 3),  -- Customer Service Representative
-    ('Emily', 'Davis', 'emily.davis@example.com', '123-456-7893', 'Female', '1995-11-25', 'D456654321', 50000.00, '2019-11-25', 4),  -- Store Manager
-    ('David', 'Williams', 'david.williams@example.com', '123-456-7894', 'Male', '1988-12-22', 'E678912345', 30000.00, '2020-08-02', 5),  -- Cashier
-    ('Sarah', 'Miller', 'sarah.miller@example.com', '123-456-7895', 'Female', '1992-01-18', 'F123456789', 45000.00, '2021-01-18', 6),  -- Marketing Coordinator
-    ('Robert', 'Moore', 'robert.moore@example.com', '123-456-7896', 'Male', '1987-06-13', 'G987654321', 38000.00, '2022-06-30', 7),  -- Security Officer
-    ('Laura', 'Taylor', 'laura.taylor@example.com', '123-456-7897', 'Female', '1991-09-22', 'H234567890', 42000.00, '2018-09-22', 8),  -- Product Specialist
-    ('James', 'Anderson', 'james.anderson@example.com', '123-456-7898', 'Male', '1985-04-10', 'I987654321', 46000.00, '2020-12-05', 9),  -- Operations Supervisor
-    ('Linda', 'Thomas', 'linda.thomas@example.com', '123-456-7899', 'Female', '1978-02-19', 'J234567890', 55000.00, '2017-02-19', 10),  -- HR Manager
-    ('Mark', 'Jackson', 'mark.jackson@example.com', '123-456-7900', 'Male', '1993-07-13', 'K123987654', 37000.00, '2021-07-13', 1),  -- Sales Associate
-    ('Patricia', 'White', 'patricia.white@example.com', '123-456-7901', 'Female', '1989-03-30', 'L234567891', 42000.00, '2022-03-22', 2),  -- Inventory Manager
-    ('William', 'Harris', 'william.harris@example.com', '123-456-7902', 'Male', '1995-05-01', 'M123456789', 34000.00, '2023-06-01', 3),  -- Customer Service Representative
-    ('Elizabeth', 'Martin', 'elizabeth.martin@example.com', '123-456-7903', 'Female', '1982-05-14', 'N234567890', 48000.00, '2019-05-14', 4),  -- Store Manager
-    ('Joseph', 'Lee', 'joseph.lee@example.com', '123-456-7904', 'Male', '1990-09-10', 'O987654321', 29000.00, '2021-09-10', 5),  -- Cashier
-    ('Jessica', 'Gonzalez', 'jessica.gonzalez@example.com', '123-456-7905', 'Female', '1991-12-05', 'P234567890', 46000.00, '2020-11-28', 6),  -- Marketing Coordinator
-    ('Charles', 'Lopez', 'charles.lopez@example.com', '123-456-7906', 'Male', '1992-02-07', 'Q987654321', 38000.00, '2022-02-07', 7),  -- Security Officer
-    ('Karen', 'Perez', 'karen.perez@example.com', '123-456-7907', 'Female', '1986-12-17', 'R234567890', 41000.00, '2018-12-17', 8),  -- Product Specialist
-    ('Thomas', 'Clark', 'thomas.clark@example.com', '123-456-7908', 'Male', '1989-04-15', 'S123987654', 47000.00, '2023-04-15', 9),  -- Operations Supervisor
-    ('Nancy', 'Rodriguez', 'nancy.rodriguez@example.com', '123-456-7909', 'Female', '1980-10-04', 'T234567890', 53000.00, '2019-10-04', 10); -- HR Manager
+    ('John', 'Doe', 'john.doe@example.com', '0123456789', 'Male', '1985-07-12', 'A123456789', 35000.00, '2022-01-15', 1),  -- Sales Associate
+    ('Jane', 'Smith', 'jane.smith@example.com', '0123456790', 'Female', '1990-03-20', 'B987654321', 40000.00, '2021-03-20', 2),  -- Inventory Manager
+    ('Michael', 'Johnson', 'michael.johnson@example.com', '0123456791', 'Male', '1983-08-05', 'C123987654', 32000.00, '2023-05-10', 3),  -- Customer Service Representative
+    ('Emily', 'Davis', 'emily.davis@example.com', '0123456792', 'Female', '1995-11-25', 'D456654321', 50000.00, '2019-11-25', 4),  -- Store Manager
+    ('David', 'Williams', 'david.williams@example.com', '0123456793', 'Male', '1988-12-22', 'E678912345', 30000.00, '2020-08-02', 5),  -- Cashier
+    ('Sarah', 'Miller', 'sarah.miller@example.com', '0123456794', 'Female', '1992-01-18', 'F123456789', 45000.00, '2021-01-18', 6),  -- Marketing Coordinator
+    ('Robert', 'Moore', 'robert.moore@example.com', '0123456795', 'Male', '1987-06-13', 'G987654321', 38000.00, '2022-06-30', 7),  -- Security Officer
+    ('Laura', 'Taylor', 'laura.taylor@example.com', '0123456796', 'Female', '1991-09-22', 'H234567890', 42000.00, '2018-09-22', 8),  -- Product Specialist
+    ('James', 'Anderson', 'james.anderson@example.com', '0123456797', 'Male', '1985-04-10', 'I987654321', 46000.00, '2020-12-05', 9),  -- Operations Supervisor
+    ('Linda', 'Thomas', 'linda.thomas@example.com', '0123456798', 'Female', '1978-02-19', 'J234567890', 55000.00, '2017-02-19', 10),  -- HR Manager
+    ('Mark', 'Jackson', 'mark.jackson@example.com', '0123456799', 'Male', '1993-07-13', 'K123987654', 37000.00, '2021-07-13', 1),  -- Sales Associate
+    ('Patricia', 'White', 'patricia.white@example.com', '0123456800', 'Female', '1989-03-30', 'L234567891', 42000.00, '2022-03-22', 2),  -- Inventory Manager
+    ('William', 'Harris', 'william.harris@example.com', '0123456801', 'Male', '1995-05-01', 'M123456789', 34000.00, '2023-06-01', 3),  -- Customer Service Representative
+    ('Elizabeth', 'Martin', 'elizabeth.martin@example.com', '0123456802', 'Female', '1982-05-14', 'N234567890', 48000.00, '2019-05-14', 4),  -- Store Manager
+    ('Joseph', 'Lee', 'joseph.lee@example.com', '0123456803', 'Male', '1990-09-10', 'O987654321', 29000.00, '2021-09-10', 5),  -- Cashier
+    ('Jessica', 'Gonzalez', 'jessica.gonzalez@example.com', '0123456804', 'Female', '1991-12-05', 'P234567890', 46000.00, '2020-11-28', 6),  -- Marketing Coordinator
+    ('Charles', 'Lopez', 'charles.lopez@example.com', '0123456805', 'Male', '1992-02-07', 'Q987654321', 38000.00, '2022-02-07', 7),  -- Security Officer
+    ('Karen', 'Perez', 'karen.perez@example.com', '0123456806', 'Female', '1986-12-17', 'R234567890', 41000.00, '2018-12-17', 8),  -- Product Specialist
+    ('Thomas', 'Clark', 'thomas.clark@example.com', '0123456807', 'Male', '1989-04-15', 'S123987654', 47000.00, '2023-04-15', 9),  -- Operations Supervisor
+    ('Nancy', 'Rodriguez', 'nancy.rodriguez@example.com', '0123456808', 'Female', '1980-10-04', 'T234567890', 53000.00, '2019-10-04', 10); -- HR Manager
 GO
-
-
 
 -- Insert Payment Methods into PaymentMethods Table
 INSERT INTO PaymentMethods (MethodName)
@@ -117,25 +115,26 @@ VALUES
     ('Debit Card');
 GO
 
--- Insert 15 Sales transactions using PaymentMethodID
+-- Insert 15 Sales transactions using PaymentMethodID with specific times
 INSERT INTO Sales (SaleDate, CustomerID, EmployeeID, PaymentMethodID)
 VALUES 
-    ('2024-02-01', 1, 3, 2),  -- Credit Card
-    ('2024-02-02', 2, 5, 1),  -- Cash
-    ('2024-02-03', 3, 7, 3),  -- Debit Card
-    ('2024-02-04', 4, 2, 2),  -- Credit Card
-    ('2024-02-05', 5, 6, 1),  -- Cash
-    ('2024-02-06', 6, 10, 2), -- Credit Card
-    ('2024-02-07', 7, 12, 3), -- Debit Card
-    ('2024-02-08', 8, 1, 1),  -- Cash
-    ('2024-02-09', 9, 4, 2),  -- Credit Card
-    ('2024-02-10', 10, 9, 1), -- Cash
-    ('2024-02-11', NULL, 13, 2),  -- Non-registered customer (Credit Card)
-    ('2024-02-12', NULL, 15, 3),  -- Non-registered customer (Debit Card)
-    ('2024-02-13', 1, 16, 2),  -- Credit Card
-    ('2024-02-14', 3, 18, 1),  -- Cash
-    ('2024-02-15', 6, 20, 3);  -- Debit Card
+    ('2024-02-01 08:30:00', 1, 3, 2),  -- Credit Card
+    ('2024-02-02 09:45:00', 2, 5, 1),  -- Cash
+    ('2024-02-03 10:00:00', 3, 7, 3),  -- Debit Card
+    ('2024-02-04 11:15:00', 4, 2, 2),  -- Credit Card
+    ('2024-02-05 12:30:00', 5, 6, 1),  -- Cash
+    ('2024-02-06 13:45:00', 6, 10, 2), -- Credit Card
+    ('2024-02-07 14:00:00', 7, 12, 3), -- Debit Card
+    ('2024-02-08 15:15:00', 8, 1, 1),  -- Cash
+    ('2024-02-09 16:30:00', 9, 4, 2),  -- Credit Card
+    ('2024-02-10 17:45:00', 10, 9, 1), -- Cash
+    ('2024-02-11 18:00:00', NULL, 13, 2),  -- Non-registered customer (Credit Card)
+    ('2024-02-12 19:15:00', NULL, 15, 3),  -- Non-registered customer (Debit Card)
+    ('2024-02-13 20:30:00', 1, 16, 2),  -- Credit Card
+    ('2024-02-14 21:45:00', 3, 18, 1),  -- Cash
+    ('2024-02-15 22:00:00', 6, 20, 3);  -- Debit Card
 GO
+
 
 -- Insert 50 SaleDetails rows into SaleDetails Table
 INSERT INTO SaleDetails (SaleID, ProductTypeID, Quantity)
