@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
-using Minimart.DatabaseAccess;
 
 namespace Minimart.UserControls
 {
@@ -20,13 +18,50 @@ namespace Minimart.UserControls
 
         public async void LoadData()
         {
+            // Load all roles from the service
             var roles = await service.GetAllAsync();
+
+            // Set the data source for the datagrid
             datagrid.DataSource = roles;
+
+            // Set the column order: CanView columns first, then CanEdit columns
+            // Ensure the DataGridView columns are ordered correctly after binding data
+            SetColumnOrder();
+        }
+
+        private void SetColumnOrder()
+        {
+            // Set the order of columns to ensure CanView columns are first, then CanEdit columns
+            var columnOrder = new string[]
+            {
+        "CanViewCategories", "CanViewSuppliers", "CanViewMeasurementUnits", "CanViewProductTypes",
+        "CanViewCustomers", "CanViewEmployeeRoles", "CanViewEmployees", "CanViewPaymentMethods",
+        "CanViewSales", "CanViewSaleDetails", "CanViewAdminRoles", "CanViewAdmins",
+        "CanEditCategories", "CanEditSuppliers", "CanEditMeasurementUnits", "CanEditProductTypes",
+        "CanEditCustomers", "CanEditEmployeeRoles", "CanEditEmployees", "CanEditPaymentMethods",
+        "CanEditSales", "CanEditSaleDetails", "CanEditAdminRoles", "CanEditAdmins"
+            };
+
+            int index = 0;
+            foreach (var columnName in columnOrder)
+            {
+                if (datagrid.Columns.Contains(columnName))
+                {
+                    datagrid.Columns[columnName].DisplayIndex = index++;
+                }
+            }
         }
 
         private async void addButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(descText.Text))
+            // Check if all required input fields are filled
+            if (string.IsNullOrEmpty(nameText.Text) || string.IsNullOrEmpty(descText.Text))
+            {
+                MessageBox.Show("Please fill in both Role Name and Description fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;  // Exit the method if validation fails
+            }
+
+            try
             {
                 var newRole = new AdminRole
                 {
@@ -58,59 +93,80 @@ namespace Minimart.UserControls
                     CanEditAdmins = editChecklist.GetItemChecked(11)
                 };
 
+                // Attempt to add the new role
                 await service.AddAsync(newRole);
                 LoadData();
                 ClearFields();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please fill in both Role Name and Description fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Display an error message if an exception occurs during the AddAsync operation
+                MessageBox.Show($"An error occurred while adding the role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
+            // Check if all required input fields are filled
+            if (string.IsNullOrEmpty(nameText.Text) || string.IsNullOrEmpty(descText.Text))
+            {
+                MessageBox.Show("Please fill in both Role Name and Description fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;  // Exit the method if validation fails
+            }
+
+            // Ensure a row is selected in the data grid
             if (datagrid.SelectedRows.Count > 0)
             {
                 var selectedRow = datagrid.SelectedRows[0];
                 var roleId = (int)selectedRow.Cells["AdminRoleID"].Value;
-                var roleToUpdate = await service.GetByIdAsync(roleId);
 
-                if (roleToUpdate != null)
+                try
                 {
-                    roleToUpdate.RoleName = nameText.Text;
-                    roleToUpdate.RoleDescription = descText.Text;
-                    roleToUpdate.CanViewCategories = viewChecklist.GetItemChecked(0);
-                    roleToUpdate.CanEditCategories = editChecklist.GetItemChecked(0);
-                    roleToUpdate.CanViewSuppliers = viewChecklist.GetItemChecked(1);
-                    roleToUpdate.CanEditSuppliers = editChecklist.GetItemChecked(1);
-                    roleToUpdate.CanViewMeasurementUnits = viewChecklist.GetItemChecked(2);
-                    roleToUpdate.CanEditMeasurementUnits = editChecklist.GetItemChecked(2);
-                    roleToUpdate.CanViewProductTypes = viewChecklist.GetItemChecked(3);
-                    roleToUpdate.CanEditProductTypes = editChecklist.GetItemChecked(3);
-                    roleToUpdate.CanViewCustomers = viewChecklist.GetItemChecked(4);
-                    roleToUpdate.CanEditCustomers = editChecklist.GetItemChecked(4);
-                    roleToUpdate.CanViewEmployeeRoles = viewChecklist.GetItemChecked(5);
-                    roleToUpdate.CanEditEmployeeRoles = editChecklist.GetItemChecked(5);
-                    roleToUpdate.CanViewEmployees = viewChecklist.GetItemChecked(6);
-                    roleToUpdate.CanEditEmployees = editChecklist.GetItemChecked(6);
-                    roleToUpdate.CanViewPaymentMethods = viewChecklist.GetItemChecked(7);
-                    roleToUpdate.CanEditPaymentMethods = editChecklist.GetItemChecked(7);
-                    roleToUpdate.CanViewSales = viewChecklist.GetItemChecked(8);
-                    roleToUpdate.CanEditSales = editChecklist.GetItemChecked(8);
-                    roleToUpdate.CanViewSaleDetails = viewChecklist.GetItemChecked(9);
-                    roleToUpdate.CanEditSaleDetails = editChecklist.GetItemChecked(9);
-                    roleToUpdate.CanViewAdminRoles = viewChecklist.GetItemChecked(10);
-                    roleToUpdate.CanEditAdminRoles = editChecklist.GetItemChecked(10);
-                    roleToUpdate.CanViewAdmins = viewChecklist.GetItemChecked(11);
-                    roleToUpdate.CanEditAdmins = editChecklist.GetItemChecked(11);
+                    var roleToUpdate = await service.GetByIdAsync(roleId);
 
-                    await service.UpdateAsync(roleToUpdate);
-                    LoadData();
+                    if (roleToUpdate != null)
+                    {
+                        // Update role properties
+                        roleToUpdate.RoleName = nameText.Text;
+                        roleToUpdate.RoleDescription = descText.Text;
+                        roleToUpdate.CanViewCategories = viewChecklist.GetItemChecked(0);
+                        roleToUpdate.CanEditCategories = editChecklist.GetItemChecked(0);
+                        roleToUpdate.CanViewSuppliers = viewChecklist.GetItemChecked(1);
+                        roleToUpdate.CanEditSuppliers = editChecklist.GetItemChecked(1);
+                        roleToUpdate.CanViewMeasurementUnits = viewChecklist.GetItemChecked(2);
+                        roleToUpdate.CanEditMeasurementUnits = editChecklist.GetItemChecked(2);
+                        roleToUpdate.CanViewProductTypes = viewChecklist.GetItemChecked(3);
+                        roleToUpdate.CanEditProductTypes = editChecklist.GetItemChecked(3);
+                        roleToUpdate.CanViewCustomers = viewChecklist.GetItemChecked(4);
+                        roleToUpdate.CanEditCustomers = editChecklist.GetItemChecked(4);
+                        roleToUpdate.CanViewEmployeeRoles = viewChecklist.GetItemChecked(5);
+                        roleToUpdate.CanEditEmployeeRoles = editChecklist.GetItemChecked(5);
+                        roleToUpdate.CanViewEmployees = viewChecklist.GetItemChecked(6);
+                        roleToUpdate.CanEditEmployees = editChecklist.GetItemChecked(6);
+                        roleToUpdate.CanViewPaymentMethods = viewChecklist.GetItemChecked(7);
+                        roleToUpdate.CanEditPaymentMethods = editChecklist.GetItemChecked(7);
+                        roleToUpdate.CanViewSales = viewChecklist.GetItemChecked(8);
+                        roleToUpdate.CanEditSales = editChecklist.GetItemChecked(8);
+                        roleToUpdate.CanViewSaleDetails = viewChecklist.GetItemChecked(9);
+                        roleToUpdate.CanEditSaleDetails = editChecklist.GetItemChecked(9);
+                        roleToUpdate.CanViewAdminRoles = viewChecklist.GetItemChecked(10);
+                        roleToUpdate.CanEditAdminRoles = editChecklist.GetItemChecked(10);
+                        roleToUpdate.CanViewAdmins = viewChecklist.GetItemChecked(11);
+                        roleToUpdate.CanEditAdmins = editChecklist.GetItemChecked(11);
+
+                        // Attempt to update the role
+                        await service.UpdateAsync(roleToUpdate);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Admin role not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Admin role not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Display an error message if an exception occurs during the UpdateAsync operation
+                    MessageBox.Show($"An error occurred while updating the role: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

@@ -37,9 +37,16 @@ namespace Minimart.UserControls
                     SupplierAddress = addressText.Text
                 };
 
-                await service.AddAsync(newSupplier);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await service.AddAsync(newSupplier);
+                    LoadData();
+                    ClearFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding supplier: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -54,20 +61,27 @@ namespace Minimart.UserControls
                 var selectedRow = datagrid.SelectedRows[0];
                 var supplierId = (int)selectedRow.Cells["SupplierID"].Value;
 
-                var supplierToUpdate = await service.GetByIdAsync(supplierId);
-                if (supplierToUpdate != null)
+                try
                 {
-                    supplierToUpdate.SupplierName = nameText.Text;
-                    supplierToUpdate.SupplierEmail = emailText.Text;
-                    supplierToUpdate.SupplierPhoneNumber = phoneText.Text;
-                    supplierToUpdate.SupplierAddress = addressText.Text;
+                    var supplierToUpdate = await service.GetByIdAsync(supplierId);
+                    if (supplierToUpdate != null)
+                    {
+                        supplierToUpdate.SupplierName = nameText.Text;
+                        supplierToUpdate.SupplierEmail = emailText.Text;
+                        supplierToUpdate.SupplierPhoneNumber = phoneText.Text;
+                        supplierToUpdate.SupplierAddress = addressText.Text;
 
-                    await service.UpdateAsync(supplierToUpdate);
-                    LoadData();
+                        await service.UpdateAsync(supplierToUpdate);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Supplier not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Supplier not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error updating supplier: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

@@ -32,9 +32,16 @@ namespace Minimart.UserControls
                     MethodName = nameText.Text
                 };
 
-                await service.AddAsync(newPaymentMethod);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await service.AddAsync(newPaymentMethod);  // Use the async method for adding
+                    LoadData();  // Refresh data grid after adding
+                    ClearFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding payment method: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -52,9 +59,23 @@ namespace Minimart.UserControls
                 var methodToUpdate = await service.GetByIdAsync(methodId);
                 if (methodToUpdate != null)
                 {
+                    if (string.IsNullOrWhiteSpace(nameText.Text))
+                    {
+                        MessageBox.Show("Please enter a method name to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     methodToUpdate.MethodName = nameText.Text;
-                    await service.UpdateAsync(methodToUpdate);
-                    LoadData();
+
+                    try
+                    {
+                        await service.UpdateAsync(methodToUpdate);
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error updating payment method: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

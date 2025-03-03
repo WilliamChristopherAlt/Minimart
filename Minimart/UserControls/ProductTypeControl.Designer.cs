@@ -1,4 +1,6 @@
-﻿namespace Minimart.UserControls
+﻿using System.Windows.Forms;
+
+namespace Minimart.UserControls
 {
     partial class ProductTypeControl
     {
@@ -126,6 +128,8 @@
             this.measureUnitIDComboBox.Name = "measureUnitIDComboBox";
             this.measureUnitIDComboBox.Size = new System.Drawing.Size(148, 28);
             this.measureUnitIDComboBox.TabIndex = 32;
+            this.measureUnitIDComboBox.SelectedIndexChanged += new System.EventHandler(this.measureUnitIDComboBox_SelectedIndexChanged);
+            this.measureUnitIDComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // supplierIDComboBox
             // 
@@ -135,6 +139,7 @@
             this.supplierIDComboBox.Name = "supplierIDComboBox";
             this.supplierIDComboBox.Size = new System.Drawing.Size(183, 28);
             this.supplierIDComboBox.TabIndex = 31;
+            this.supplierIDComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // categoryIDComboBox
             // 
@@ -144,6 +149,7 @@
             this.categoryIDComboBox.Name = "categoryIDComboBox";
             this.categoryIDComboBox.Size = new System.Drawing.Size(183, 28);
             this.categoryIDComboBox.TabIndex = 30;
+            this.categoryIDComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // dateAddedPicker
             // 

@@ -1,4 +1,6 @@
-﻿namespace Minimart.UserControls
+﻿using System.Windows.Forms;
+
+namespace Minimart.UserControls
 {
     partial class SaleDetailControl
     {
@@ -95,6 +97,7 @@
             this.productTypeIDCombobox.Name = "productTypeIDCombobox";
             this.productTypeIDCombobox.Size = new System.Drawing.Size(148, 28);
             this.productTypeIDCombobox.TabIndex = 33;
+            this.productTypeIDCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // saleIDCombobox
             // 
@@ -104,6 +107,7 @@
             this.saleIDCombobox.Name = "saleIDCombobox";
             this.saleIDCombobox.Size = new System.Drawing.Size(148, 28);
             this.saleIDCombobox.TabIndex = 32;
+            this.saleIDCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // label4
             // 

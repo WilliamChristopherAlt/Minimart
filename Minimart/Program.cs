@@ -12,20 +12,38 @@ namespace Minimart
         [STAThread]
         static void Main()
         {
-            // Enable Visual Styles (always comes first)
+            // Enable Visual Styles
             Application.EnableVisualStyles();
-
-            // Set the compatible text rendering before creating any window
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Set up Dependency Injection
             var serviceProvider = ConfigureServices();
 
-            // Resolve the main form through DI
-            var mainForm = serviceProvider.GetRequiredService<MainForm>();
+            //var loginForm = serviceProvider.GetRequiredService<LoginForm>();
+            //Application.Run(loginForm);
 
-            // Run your MainForm
-            Application.Run(mainForm);
+            // Resolve LoginForm with the AdminService
+            using (var loginForm = serviceProvider.GetRequiredService<LoginForm>())
+            {
+                // Show the login form as a modal dialog
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the logged-in Admin instance from the LoginForm
+                    var admin = loginForm._admin;
+
+                    // Manually create and pass the Admin instance to MainForm
+                    var mainForm = new MainForm(admin);
+
+                    // Run the MainForm
+                    Application.Run(mainForm);
+                }
+            }
+
+            //// Resolve the main form through DI
+            //var mainForm = serviceProvider.GetRequiredService<MainForm>();
+
+            //// Run your MainForm
+            //Application.Run(mainForm);
         }
 
         // Configure services for Dependency Injection
@@ -33,11 +51,12 @@ namespace Minimart
         {
             var services = new ServiceCollection();
 
-            // Register DbContext with the service collection
+            // Register DbContext
             services.AddDbContext<MinimartDbContext>(options =>
-                options.UseSqlServer("Server=DESKTOP-0BQ9RBN\\SQLEXPRESS;Database=Minimart;Integrated Security=True;"), ServiceLifetime.Scoped);
+                options.UseSqlServer("Server=DESKTOP-0BQ9RBN\\SQLEXPRESS;Database=Minimart;Integrated Security=True;"),
+                ServiceLifetime.Scoped);
 
-            // Register the services
+            // Register business logic services
             services.AddScoped<SupplierService>();
             services.AddScoped<ProductTypeService>();
             services.AddScoped<CategoryService>();
@@ -51,8 +70,8 @@ namespace Minimart
             services.AddScoped<AdminRoleService>();
             services.AddScoped<MeasurementUnitService>();
 
-            // Register MainForm and any dependencies it might have
             services.AddScoped<MainForm>();
+            services.AddScoped<LoginForm>();
 
             return services.BuildServiceProvider();
         }

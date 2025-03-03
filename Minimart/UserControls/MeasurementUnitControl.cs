@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
-using Minimart.DatabaseAccess;
 
 namespace Minimart.UserControls
 {
@@ -26,49 +24,67 @@ namespace Minimart.UserControls
 
         private async void addButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(descText.Text))
+            try
             {
+                if (string.IsNullOrWhiteSpace(nameText.Text) || string.IsNullOrWhiteSpace(descText.Text))
+                {
+                    MessageBox.Show("Please fill in both Name and Description fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 var newUnit = new MeasurementUnit
                 {
                     UnitName = nameText.Text,
-                    UnitDescription = descText.Text
+                    UnitDescription = descText.Text,
+                    IsContinuous = continuousCheckbox.Checked  // Use the checkbox to set IsContinuous
                 };
 
                 await service.AddAsync(newUnit);
                 LoadData();
                 ClearFields();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please fill in both Name and Description fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error adding measurement unit: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            if (datagrid.SelectedRows.Count > 0)
+            if (datagrid.SelectedRows.Count == 0)
             {
-                var selectedRow = datagrid.SelectedRows[0];
-                var unitId = (int)selectedRow.Cells["MeasurementUnitID"].Value;
+                MessageBox.Show("Please select a measurement unit to update.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            var selectedRow = datagrid.SelectedRows[0];
+            var unitId = (int)selectedRow.Cells["MeasurementUnitID"].Value;
+
+            try
+            {
                 var unitToUpdate = await service.GetByIdAsync(unitId);
-                if (unitToUpdate != null)
-                {
-                    unitToUpdate.UnitName = nameText.Text;
-                    unitToUpdate.UnitDescription = descText.Text;
-
-                    await service.UpdateAsync(unitToUpdate);
-
-                    LoadData();
-                }
-                else
+                if (unitToUpdate == null)
                 {
                     MessageBox.Show("Measurement unit not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                if (string.IsNullOrWhiteSpace(nameText.Text) || string.IsNullOrWhiteSpace(descText.Text))
+                {
+                    MessageBox.Show("Please fill in both Name and Description fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                unitToUpdate.UnitName = nameText.Text;
+                unitToUpdate.UnitDescription = descText.Text;
+                unitToUpdate.IsContinuous = continuousCheckbox.Checked;
+
+                await service.UpdateAsync(unitToUpdate);
+                LoadData();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a measurement unit to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error updating measurement unit: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -108,6 +124,7 @@ namespace Minimart.UserControls
             idText.Clear();
             nameText.Clear();
             descText.Clear();
+            continuousCheckbox.Checked = false;  // Clear the checkbox
         }
 
         private void datagrid_SelectionChanged(object sender, EventArgs e)
@@ -118,6 +135,9 @@ namespace Minimart.UserControls
                 idText.Text = selectedRow.Cells["MeasurementUnitID"].Value?.ToString();
                 nameText.Text = selectedRow.Cells["UnitName"].Value?.ToString();
                 descText.Text = selectedRow.Cells["UnitDescription"].Value?.ToString();
+
+                // Set the checkbox based on IsContinuous value
+                continuousCheckbox.Checked = (bool)selectedRow.Cells["IsContinuous"].Value;
             }
         }
     }

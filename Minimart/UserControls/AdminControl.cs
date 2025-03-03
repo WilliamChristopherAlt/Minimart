@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
-using Minimart.DatabaseAccess;
 
 namespace Minimart.UserControls
 {
@@ -52,36 +51,64 @@ namespace Minimart.UserControls
             adminRoleIDCombobox.ValueMember = "AdminRoleID";
         }
 
-
         private async void addButton_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(usernameText.Text) && adminRoleIDCombobox.SelectedItem != null && employeeIDCombobox.SelectedItem != null)
+            // Check if all required fields are filled
+            if (string.IsNullOrEmpty(usernameText.Text) ||
+                adminRoleIDCombobox.SelectedItem == null ||
+                employeeIDCombobox.SelectedItem == null ||
+                string.IsNullOrEmpty(passwordText.Text)) // No need for saltText.Text check
+            {
+                MessageBox.Show("Please fill in all required fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
             {
                 var newAdmin = new Admin
                 {
                     EmployeeID = (int)employeeIDCombobox.SelectedValue,
                     Username = usernameText.Text,
-                    PasswordHash = Convert.FromBase64String(hashText.Text),
-                    Salt = Convert.FromBase64String(saltText.Text),
                     AdminRoleID = (int)adminRoleIDCombobox.SelectedValue,
                     CreatedAt = dateCreatedPicker.Value,
                     LastLogin = lastLoginDatePicker.Checked ? lastLoginDatePicker.Value : (DateTime?)null,
                     IsActive = activeCheckbox.Checked
                 };
 
+                // Generate hash and salt from the password field
+                newAdmin.SetHashAndSalt(passwordText.Text);
+
+                // Add admin to the database
                 await _serviceAdmin.AddAsync(newAdmin);
+
+                // Reload data and clear input fields
                 LoadData();
                 ClearFields();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please fill in all required fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while adding the admin: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            if (datagrid.SelectedRows.Count > 0)
+            if (datagrid.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an admin to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(usernameText.Text) ||
+                adminRoleIDCombobox.SelectedItem == null ||
+                employeeIDCombobox.SelectedItem == null ||
+                string.IsNullOrEmpty(passwordText.Text)) // No need for saltText.Text check
+            {
+                MessageBox.Show("Please fill in all required fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
             {
                 var selectedRow = datagrid.SelectedRows[0];
                 var adminId = (int)selectedRow.Cells["AdminID"].Value;
@@ -91,14 +118,21 @@ namespace Minimart.UserControls
                 {
                     adminToUpdate.EmployeeID = (int)employeeIDCombobox.SelectedValue;
                     adminToUpdate.Username = usernameText.Text;
-                    adminToUpdate.PasswordHash = Convert.FromBase64String(hashText.Text);
-                    adminToUpdate.Salt = Convert.FromBase64String(saltText.Text);
                     adminToUpdate.AdminRoleID = (int)adminRoleIDCombobox.SelectedValue;
                     adminToUpdate.CreatedAt = dateCreatedPicker.Value;
                     adminToUpdate.LastLogin = lastLoginDatePicker.Checked ? lastLoginDatePicker.Value : (DateTime?)null;
                     adminToUpdate.IsActive = activeCheckbox.Checked;
 
+                    // If a new password is provided, generate a new hash and salt
+                    if (!string.IsNullOrEmpty(passwordText.Text))
+                    {
+                        adminToUpdate.SetHashAndSalt(passwordText.Text);
+                    }
+
+                    // Update admin in the database
                     await _serviceAdmin.UpdateAsync(adminToUpdate);
+
+                    // Reload data
                     LoadData();
                 }
                 else
@@ -106,11 +140,12 @@ namespace Minimart.UserControls
                     MessageBox.Show("Admin not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select an admin to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while updating the admin: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async void deleteButton_Click(object sender, EventArgs e)
         {
@@ -143,8 +178,7 @@ namespace Minimart.UserControls
         {
             idText.Clear();
             usernameText.Clear();
-            hashText.Clear();
-            saltText.Clear();
+            passwordText.Clear();
             adminRoleIDCombobox.SelectedIndex = -1;
             employeeIDCombobox.SelectedIndex = -1;
             dateCreatedPicker.Value = DateTime.Now;
@@ -154,43 +188,38 @@ namespace Minimart.UserControls
         }
 
         private async void datagrid_SelectionChanged(object sender, EventArgs e)
-{
-    if (datagrid.CurrentRow != null && datagrid.CurrentRow.Index >= 0)
-    {
-        var selectedRow = datagrid.CurrentRow;
-        var admin = selectedRow.DataBoundItem as dynamic;
-
-        if (admin != null)
         {
-            idText.Text = admin.AdminID.ToString();
-            employeeIDCombobox.SelectedIndex = employeeIDCombobox.FindStringExact(admin.EmployeeName);
-            usernameText.Text = admin.Username;
-            adminRoleIDCombobox.SelectedIndex = adminRoleIDCombobox.FindStringExact(admin.AdminRoleName);
-            dateCreatedPicker.Value = admin.CreatedAt;
-
-            var lastLogin = admin.LastLogin;
-            if (lastLogin != null)
+            if (datagrid.CurrentRow != null && datagrid.CurrentRow.Index >= 0)
             {
-                lastLoginDatePicker.Value = lastLogin;
-                lastLoginDatePicker.Checked = true;
-            }
-            else
-            {
-                lastLoginDatePicker.Checked = false;
-            }
+                var selectedRow = datagrid.CurrentRow;
+                var admin = selectedRow.DataBoundItem as dynamic;
 
-            activeCheckbox.Checked = admin.IsActive;
+                if (admin != null)
+                {
+                    idText.Text = admin.AdminID.ToString();
+                    employeeIDCombobox.SelectedIndex = employeeIDCombobox.FindStringExact(admin.EmployeeName);
+                    usernameText.Text = admin.Username;
+                    adminRoleIDCombobox.SelectedIndex = adminRoleIDCombobox.FindStringExact(admin.AdminRoleName);
+                    dateCreatedPicker.Value = admin.CreatedAt;
 
-            var adminId = admin.AdminID;
-            var adminToUpdate = await _serviceAdmin.GetByIdAsync(adminId);
-            if (adminToUpdate != null)
-            {
-                hashText.Text = Convert.ToBase64String(adminToUpdate.PasswordHash);
-                saltText.Text = Convert.ToBase64String(adminToUpdate.Salt);
+                    var lastLogin = admin.LastLogin;
+                    if (lastLogin != null)
+                    {
+                        lastLoginDatePicker.Value = lastLogin;
+                        lastLoginDatePicker.Checked = true;
+                    }
+                    else
+                    {
+                        lastLoginDatePicker.Checked = false;
+                    }
+
+                    activeCheckbox.Checked = admin.IsActive;
+
+                    var adminId = admin.AdminID;
+                    var adminToUpdate = await _serviceAdmin.GetByIdAsync(adminId);
+                    passwordText.Clear();
+                }
             }
         }
-    }
-}
-
     }
 }

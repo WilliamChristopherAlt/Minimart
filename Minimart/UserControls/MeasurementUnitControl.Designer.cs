@@ -45,6 +45,8 @@
             this.datagrid = new System.Windows.Forms.DataGridView();
             this.gridHeaderLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.continuousCheckbox = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid)).BeginInit();
@@ -52,6 +54,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.continuousCheckbox);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.descText);
             this.groupBox1.Controls.Add(this.nameText);
             this.groupBox1.Controls.Add(this.idText);
@@ -218,6 +222,26 @@
             this.gridHeaderLabel.TabIndex = 0;
             this.gridHeaderLabel.Text = "Data of Measurement Units";
             // 
+            // continuousCheckbox
+            // 
+            this.continuousCheckbox.AutoSize = true;
+            this.continuousCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continuousCheckbox.Location = new System.Drawing.Point(180, 218);
+            this.continuousCheckbox.Name = "continuousCheckbox";
+            this.continuousCheckbox.Size = new System.Drawing.Size(18, 17);
+            this.continuousCheckbox.TabIndex = 37;
+            this.continuousCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(6, 213);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(168, 22);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "Continuous Value";
+            // 
             // MeasurementUnitControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -253,5 +277,7 @@
         private System.Windows.Forms.TextBox idText;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox continuousCheckbox;
+        private System.Windows.Forms.Label label10;
     }
 }

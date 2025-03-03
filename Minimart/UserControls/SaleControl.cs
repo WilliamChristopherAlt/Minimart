@@ -70,9 +70,16 @@ namespace Minimart.UserControls
                     PaymentMethodID = (int)payMethodIDCombobox.SelectedValue
                 };
 
-                await _serviceSale.AddAsync(newSale);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await _serviceSale.AddAsync(newSale);  // Attempt to add the sale
+                    LoadData();  // Refresh the data grid
+                    ClearFields();  // Clear form fields after successful addition
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding sale: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -82,30 +89,46 @@ namespace Minimart.UserControls
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            if (datagrid.SelectedRows.Count > 0)
+            // Check if all combo boxes have selected items
+            if (employeeIDCombobox.SelectedItem != null && customerIDCombobox.SelectedItem != null && payMethodIDCombobox.SelectedItem != null)
             {
-                var selectedRow = datagrid.SelectedRows[0];
-                var saleId = (int)selectedRow.Cells["SaleID"].Value;
-
-                var saleToUpdate = await _serviceSale.GetByIdAsync(saleId);
-                if (saleToUpdate != null)
+                if (datagrid.SelectedRows.Count > 0)
                 {
-                    saleToUpdate.SaleDate = datePicker.Value;
-                    saleToUpdate.CustomerID = (int)customerIDCombobox.SelectedValue;
-                    saleToUpdate.EmployeeID = (int)employeeIDCombobox.SelectedValue;
-                    saleToUpdate.PaymentMethodID = (int)payMethodIDCombobox.SelectedValue;
+                    var selectedRow = datagrid.SelectedRows[0];
+                    var saleId = (int)selectedRow.Cells["SaleID"].Value;
 
-                    await _serviceSale.UpdateAsync(saleToUpdate);
-                    LoadData();
+                    try
+                    {
+                        var saleToUpdate = await _serviceSale.GetByIdAsync(saleId);  // Fetch sale details by ID
+                        if (saleToUpdate != null)
+                        {
+                            saleToUpdate.SaleDate = datePicker.Value;
+                            saleToUpdate.CustomerID = (int)customerIDCombobox.SelectedValue;
+                            saleToUpdate.EmployeeID = (int)employeeIDCombobox.SelectedValue;
+                            saleToUpdate.PaymentMethodID = (int)payMethodIDCombobox.SelectedValue;
+
+                            await _serviceSale.UpdateAsync(saleToUpdate);  // Update asynchronously
+                            LoadData();  // Refresh the data grid after successful update
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sale not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error updating sale: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Sale not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a sale to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Please select a sale to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Show message if any combo box is not selected
+                MessageBox.Show("Please select values for all required fields (Customer, Employee, and Payment Method).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

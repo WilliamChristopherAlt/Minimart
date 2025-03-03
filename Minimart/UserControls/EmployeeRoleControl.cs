@@ -22,7 +22,6 @@ namespace Minimart.UserControls
             var rows = await service.GetAllAsync();
             datagrid.DataSource = rows;
         }
-
         private async void addButton_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(nameText.Text) && !string.IsNullOrEmpty(descText.Text))
@@ -33,16 +32,22 @@ namespace Minimart.UserControls
                     RoleDescription = descText.Text
                 };
 
-                await service.AddAsync(newRole);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await service.AddAsync(newRole);
+                    LoadData();
+                    ClearFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
                 MessageBox.Show("Please fill in both Name and Description fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private async void updateButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
@@ -56,8 +61,15 @@ namespace Minimart.UserControls
                     roleToUpdate.RoleName = nameText.Text;
                     roleToUpdate.RoleDescription = descText.Text;
 
-                    await service.UpdateAsync(roleToUpdate);
-                    LoadData();
+                    try
+                    {
+                        await service.UpdateAsync(roleToUpdate);
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

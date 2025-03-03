@@ -1,22 +1,44 @@
 ﻿using System;
 using System.Windows.Forms;
+using Minimart.BusinessLogic;
+using Minimart.Entities;
 using Minimart.UserControls;
-using System.Diagnostics;
 
 namespace Minimart
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private Admin _admin;
+        private AdminService _serviceAdmin;
+
+        public MainForm(Admin admin)
         {
             InitializeComponent();
+            _admin = admin;
+            _serviceAdmin = new AdminService();
+
+            // Load admin data asynchronously
+            LoadAdminDataAsync();
+        }
+
+        private async void LoadAdminDataAsync()
+        {
+            if (_admin != null)
+            {
+                usernameLabel.Text = _admin.Username;
+
+                // Fetch the role name using GetRoleNameByIdAsync
+                string roleName = await _serviceAdmin.GetRoleNameByIdAsync(_admin.AdminRole?.AdminRoleID ?? 0);
+
+                // Set the role label
+                roleLabel.Text = roleName;
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
-
 
         private void LoadView(UserControl view)
         {
@@ -84,5 +106,22 @@ namespace Minimart
         {
             LoadView(new MeasurementUnitControl());
         }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Logout Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                this.Dispose();
+                Application.Restart();
+            }
+        }
+
     }
 }

@@ -36,9 +36,16 @@ namespace Minimart.UserControls
                     Email = emailText.Text
                 };
 
-                await service.AddAsync(newCustomer);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await service.AddAsync(newCustomer);
+                    LoadData();
+                    ClearFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -61,8 +68,15 @@ namespace Minimart.UserControls
                     customerToUpdate.PhoneNumber = phoneText.Text;
                     customerToUpdate.Email = emailText.Text;
 
-                    await service.UpdateAsync(customerToUpdate);
-                    LoadData();
+                    try
+                    {
+                        await service.UpdateAsync(customerToUpdate);
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error updating customer: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {

@@ -1,4 +1,6 @@
-﻿namespace Minimart.UserControls
+﻿using System.Windows.Forms;
+
+namespace Minimart.UserControls
 {
     partial class AdminControl
     {
@@ -30,6 +32,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.passwordText = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.lastLoginDatePicker = new System.Windows.Forms.DateTimePicker();
             this.dateCreatedPicker = new System.Windows.Forms.DateTimePicker();
             this.activeCheckbox = new System.Windows.Forms.CheckBox();
@@ -53,10 +57,6 @@
             this.datagrid = new System.Windows.Forms.DataGridView();
             this.gridHeaderLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.saltText = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.hashText = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid)).BeginInit();
@@ -64,9 +64,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.saltText);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.hashText);
+            this.groupBox1.Controls.Add(this.passwordText);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.lastLoginDatePicker);
             this.groupBox1.Controls.Add(this.dateCreatedPicker);
@@ -91,6 +89,24 @@
             this.groupBox1.Size = new System.Drawing.Size(327, 731);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // passwordText
+            // 
+            this.passwordText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordText.Location = new System.Drawing.Point(134, 335);
+            this.passwordText.Name = "passwordText";
+            this.passwordText.Size = new System.Drawing.Size(182, 27);
+            this.passwordText.TabIndex = 49;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(11, 340);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(97, 22);
+            this.label5.TabIndex = 48;
+            this.label5.Text = "Password";
             // 
             // lastLoginDatePicker
             // 
@@ -156,6 +172,7 @@
             // 
             // adminRoleIDCombobox
             // 
+            this.adminRoleIDCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.adminRoleIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminRoleIDCombobox.FormattingEnabled = true;
             this.adminRoleIDCombobox.Location = new System.Drawing.Point(134, 122);
@@ -175,6 +192,7 @@
             // 
             // employeeIDCombobox
             // 
+            this.employeeIDCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.employeeIDCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.employeeIDCombobox.FormattingEnabled = true;
             this.employeeIDCombobox.Location = new System.Drawing.Point(134, 88);
@@ -308,10 +326,10 @@
             this.datagrid.RowHeadersVisible = false;
             this.datagrid.RowHeadersWidth = 51;
             this.datagrid.RowTemplate.Height = 24;
+            this.datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagrid.Size = new System.Drawing.Size(852, 643);
             this.datagrid.TabIndex = 1;
             this.datagrid.SelectionChanged += new System.EventHandler(this.datagrid_SelectionChanged);
-            this.datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
             // gridHeaderLabel
             // 
@@ -322,42 +340,6 @@
             this.gridHeaderLabel.Size = new System.Drawing.Size(188, 29);
             this.gridHeaderLabel.TabIndex = 0;
             this.gridHeaderLabel.Text = "Data of Admins";
-            // 
-            // saltText
-            // 
-            this.saltText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saltText.Location = new System.Drawing.Point(139, 368);
-            this.saltText.Name = "saltText";
-            this.saltText.Size = new System.Drawing.Size(177, 27);
-            this.saltText.TabIndex = 51;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(11, 372);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 22);
-            this.label3.TabIndex = 50;
-            this.label3.Text = "Salt";
-            // 
-            // hashText
-            // 
-            this.hashText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hashText.Location = new System.Drawing.Point(139, 335);
-            this.hashText.Name = "hashText";
-            this.hashText.Size = new System.Drawing.Size(177, 27);
-            this.hashText.TabIndex = 49;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(11, 340);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 22);
-            this.label5.TabIndex = 48;
-            this.label5.Text = "Hash";
             // 
             // AdminControl
             // 
@@ -402,9 +384,7 @@
         private System.Windows.Forms.CheckBox activeCheckbox;
         private System.Windows.Forms.DateTimePicker dateCreatedPicker;
         private System.Windows.Forms.DateTimePicker lastLoginDatePicker;
-        private System.Windows.Forms.TextBox saltText;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox hashText;
+        private System.Windows.Forms.TextBox passwordText;
         private System.Windows.Forms.Label label5;
     }
 }

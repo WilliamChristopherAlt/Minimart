@@ -38,12 +38,25 @@ namespace Minimart.UserControls
                 Supplier = pt.Supplier?.SupplierName, // Show Supplier Name
                 MeasurementUnit = pt.MeasurementUnit?.UnitName, // Show Unit Name
                 pt.Price,
-                pt.StockAmount,
+                StockAmount = pt.MeasurementUnit?.IsContinuous == true
+                    ? pt.StockAmount // Keep decimal if IsContinuous is true
+                    : (int)pt.StockAmount, // Show as integer if IsContinuous is false
                 pt.DateAdded,
                 pt.IsActive
             }).ToList();
 
             datagrid.DataSource = formattedData;
+
+            // Set the numeric up-down format based on IsContinuous of first unit
+            var firstProductType = productTypes.FirstOrDefault();
+            if (firstProductType?.MeasurementUnit?.IsContinuous == true)
+            {
+                stockNumericUpDown.DecimalPlaces = 2;  // Show decimals if IsContinuous is true
+            }
+            else
+            {
+                stockNumericUpDown.DecimalPlaces = 0;  // Show no decimals if IsContinuous is false
+            }
 
             // Load Supplier Names into ComboBox
             var suppliers = await _serviceSupplier.GetAllAsync();
@@ -68,33 +81,18 @@ namespace Minimart.UserControls
         {
             try
             {
-                // Check if all required fields are filled
-                if (string.IsNullOrEmpty(nameText.Text) || string.IsNullOrEmpty(descText.Text))
+                if (string.IsNullOrWhiteSpace(nameText.Text) || string.IsNullOrWhiteSpace(descText.Text))
                 {
-                    MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Product name and description cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Check if a valid selection is made in ComboBoxes
-                if (supplierIDComboBox.SelectedIndex == -1)
+                if (supplierIDComboBox.SelectedIndex == -1 || categoryIDComboBox.SelectedIndex == -1 || measureUnitIDComboBox.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Please select a supplier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a supplier, category, and measurement unit.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (categoryIDComboBox.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (measureUnitIDComboBox.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Please select a measurement unit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Create the new product type object
                 var newProductType = new ProductType
                 {
                     ProductName = nameText.Text,
@@ -108,78 +106,69 @@ namespace Minimart.UserControls
                     IsActive = activeCheckbox.Checked
                 };
 
-                // Add the new product type asynchronously
                 await _serviceProductType.AddAsync(newProductType);
+
                 LoadData();
                 ClearFields();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error adding product: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
-            try
+            if (datagrid.SelectedRows.Count > 0)
             {
-                if (datagrid.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Please select a product type to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 var selectedRow = datagrid.SelectedRows[0];
                 var productTypeId = (int)selectedRow.Cells["ProductTypeID"].Value;
 
-                var productTypeToUpdate = await _serviceProductType.GetByIdAsync(productTypeId);
-                if (productTypeToUpdate == null)
+                try
                 {
-                    MessageBox.Show("ProductType not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    var productTypeToUpdate = await _serviceProductType.GetByIdAsync(productTypeId);
+                    if (productTypeToUpdate != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(nameText.Text) || string.IsNullOrWhiteSpace(descText.Text))
+                        {
+                            MessageBox.Show("Product name and description cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                // Check if a valid selection is made in ComboBoxes
-                if (supplierIDComboBox.SelectedIndex == -1)
+                        if (supplierIDComboBox.SelectedIndex == -1 || categoryIDComboBox.SelectedIndex == -1 || measureUnitIDComboBox.SelectedIndex == -1)
+                        {
+                            MessageBox.Show("Please select a supplier, category, and measurement unit.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        productTypeToUpdate.ProductName = nameText.Text;
+                        productTypeToUpdate.ProductDescription = descText.Text;
+                        productTypeToUpdate.Price = priceNumericUpDown.Value;
+                        productTypeToUpdate.StockAmount = stockNumericUpDown.Value;
+                        productTypeToUpdate.DateAdded = dateAddedPicker.Value;
+                        productTypeToUpdate.SupplierID = (int)supplierIDComboBox.SelectedValue;
+                        productTypeToUpdate.CategoryID = (int)categoryIDComboBox.SelectedValue;
+                        productTypeToUpdate.MeasurementUnitID = (int)measureUnitIDComboBox.SelectedValue;
+                        productTypeToUpdate.IsActive = activeCheckbox.Checked;
+
+                        await _serviceProductType.UpdateAsync(productTypeToUpdate);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Please select a supplier.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show($"Error updating product: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                if (categoryIDComboBox.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (measureUnitIDComboBox.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Please select a measurement unit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Update product type properties
-                productTypeToUpdate.ProductName = nameText.Text;
-                productTypeToUpdate.ProductDescription = descText.Text;
-                productTypeToUpdate.Price = priceNumericUpDown.Value;
-                productTypeToUpdate.StockAmount = stockNumericUpDown.Value;
-                productTypeToUpdate.DateAdded = dateAddedPicker.Value;
-                productTypeToUpdate.SupplierID = (int)supplierIDComboBox.SelectedValue;
-                productTypeToUpdate.CategoryID = (int)categoryIDComboBox.SelectedValue;
-                productTypeToUpdate.MeasurementUnitID = (int)measureUnitIDComboBox.SelectedValue;
-                productTypeToUpdate.IsActive = activeCheckbox.Checked;
-
-                // Update product type asynchronously
-                await _serviceProductType.UpdateAsync(productTypeToUpdate);
-                LoadData();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a product to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private async void deleteButton_Click(object sender, EventArgs e)
         {
@@ -189,7 +178,7 @@ namespace Minimart.UserControls
                 var productTypeId = (int)selectedRow.Cells["ProductTypeID"].Value;
 
                 var confirmResult = MessageBox.Show(
-                    "Deleting this product type will also remove any data that depends on it.\n\nAre you sure you want to continue?",
+                    "Deleting this product type will also remove any data that depends on it.\nAre you sure you want to continue?",
                     "Confirm Deletion",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
@@ -227,7 +216,7 @@ namespace Minimart.UserControls
             activeCheckbox.Checked = false;
         }
 
-        private void datagrid_SelectionChanged(object sender, EventArgs e)
+        private async void datagrid_SelectionChanged(object sender, EventArgs e)
         {
             if (datagrid.CurrentRow != null && datagrid.CurrentRow.Index >= 0)
             {
@@ -243,6 +232,37 @@ namespace Minimart.UserControls
                 supplierIDComboBox.SelectedIndex = supplierIDComboBox.FindStringExact(selectedRow.Cells["Supplier"].Value?.ToString());
                 categoryIDComboBox.SelectedIndex = categoryIDComboBox.FindStringExact(selectedRow.Cells["Category"].Value?.ToString());
                 measureUnitIDComboBox.SelectedIndex = measureUnitIDComboBox.FindStringExact(selectedRow.Cells["MeasurementUnit"].Value?.ToString());
+
+                // Fetch the selected ProductType object (this assumes you have access to the original data)
+                var selectedProductTypeID = (int)selectedRow.Cells["ProductTypeID"].Value;
+                var selectedProductType = await _serviceProductType.GetByIdAsync(selectedProductTypeID);
+
+                // Update the DecimalPlaces of stockNumericUpDown based on IsContinuous
+                if (selectedProductType?.MeasurementUnit?.IsContinuous == true)
+                {
+                    stockNumericUpDown.DecimalPlaces = 2;  // Show decimals if IsContinuous is true
+                }
+                else
+                {
+                    stockNumericUpDown.DecimalPlaces = 0;  // Show no decimals if IsContinuous is false
+                }
+            }
+        }
+
+        private void measureUnitIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (measureUnitIDComboBox.SelectedItem != null)
+            {
+                var selectedMeasurementUnit = (MeasurementUnit)measureUnitIDComboBox.SelectedItem;
+
+                if (selectedMeasurementUnit?.IsContinuous == true)
+                {
+                    stockNumericUpDown.DecimalPlaces = 2;
+                }
+                else
+                {
+                    stockNumericUpDown.DecimalPlaces = 0;
+                }
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace Minimart.UserControls
+﻿using System.Windows.Forms;
+
+namespace Minimart.UserControls
 {
     partial class EmployeeControl
     {
@@ -125,6 +127,7 @@
             this.genderCombobox.Name = "genderCombobox";
             this.genderCombobox.Size = new System.Drawing.Size(188, 28);
             this.genderCombobox.TabIndex = 44;
+            this.genderCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // citizenIDText
             // 
@@ -183,6 +186,7 @@
             this.roleIDCombobox.Name = "roleIDCombobox";
             this.roleIDCombobox.Size = new System.Drawing.Size(188, 28);
             this.roleIDCombobox.TabIndex = 36;
+            this.roleIDCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // salaryNumericUpDown
             // 

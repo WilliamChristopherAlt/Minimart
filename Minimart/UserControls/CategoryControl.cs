@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Minimart.BusinessLogic;
 using Minimart.Entities;
-using Minimart.DatabaseAccess;  // For MinimartDbContext
 
 namespace Minimart.UserControls
 {
@@ -37,10 +35,16 @@ namespace Minimart.UserControls
                     CategoryDescription = descText.Text
                 };
 
-                await service.AddAsync(newCategory);  // Use the async method for adding
-
-                LoadData();  // Refresh data grid after adding
-                ClearFields();
+                try
+                {
+                    await service.AddAsync(newCategory);  // Use the async method for adding
+                    LoadData();  // Refresh data grid after adding
+                    ClearFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding category: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -48,7 +52,6 @@ namespace Minimart.UserControls
             }
         }
 
-        // Method to update an existing category
         private async void updateButton_Click(object sender, EventArgs e)
         {
             if (datagrid.SelectedRows.Count > 0)
@@ -56,19 +59,33 @@ namespace Minimart.UserControls
                 var selectedRow = datagrid.SelectedRows[0];
                 var categoryId = (int)selectedRow.Cells["CategoryID"].Value;
 
-                var categoryToUpdate = await service.GetByIdAsync(categoryId);  // Fetch category by ID asynchronously
-                if (categoryToUpdate != null)
+                try
                 {
-                    categoryToUpdate.CategoryName = nameText.Text;
-                    categoryToUpdate.CategoryDescription = descText.Text;
+                    var categoryToUpdate = await service.GetByIdAsync(categoryId);
+                    if (categoryToUpdate != null)
+                    {
+                        // Validate input before modifying the object
+                        if (string.IsNullOrWhiteSpace(nameText.Text))
+                        {
+                            MessageBox.Show("Category name cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return; // Stop execution
+                        }
 
-                    await service.UpdateAsync(categoryToUpdate);  // Update asynchronously
+                        categoryToUpdate.CategoryName = nameText.Text;
+                        categoryToUpdate.CategoryDescription = descText.Text;
 
-                    LoadData();
+                        await service.UpdateAsync(categoryToUpdate);  // Update asynchronously
+
+                        LoadData();  // Refresh UI only if update is successful
+                    }
+                    else
+                    {
+                        MessageBox.Show("Category not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Category not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error updating category: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else

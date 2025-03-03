@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Minimart.Entities
 {
@@ -24,6 +27,7 @@ namespace Minimart.Entities
         public int MeasurementUnitID { get; set; }
         public string UnitName { get; set; }
         public string UnitDescription { get; set; }
+        public bool IsContinuous { get; set; }
     }
 
     public class ProductType
@@ -146,7 +150,7 @@ namespace Minimart.Entities
         public bool CanEditAdmins { get; set; }
     }
 
-    public class Admin
+public class Admin
     {
         public int AdminID { get; set; }
         public int EmployeeID { get; set; }
@@ -160,5 +164,41 @@ namespace Minimart.Entities
 
         public Employee Employee { get; set; }
         public AdminRole AdminRole { get; set; }
+
+        public void SetHashAndSalt(string password)
+        {
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                Salt = new byte[32];
+                rng.GetBytes(Salt);
+            }
+
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] combinedBytes = new byte[passwordBytes.Length + Salt.Length];
+
+                Buffer.BlockCopy(Salt, 0, combinedBytes, 0, Salt.Length);
+                Buffer.BlockCopy(passwordBytes, 0, combinedBytes, Salt.Length, passwordBytes.Length);
+
+                PasswordHash = sha256.ComputeHash(combinedBytes);
+            }
+        }
+
+        public bool VerifyPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] combinedBytes = new byte[passwordBytes.Length + Salt.Length];
+
+                Buffer.BlockCopy(Salt, 0, combinedBytes, 0, Salt.Length);
+                Buffer.BlockCopy(passwordBytes, 0, combinedBytes, Salt.Length, passwordBytes.Length);
+
+                byte[] computedHash = sha256.ComputeHash(combinedBytes);
+
+                return StructuralComparisons.StructuralEqualityComparer.Equals(PasswordHash, computedHash);
+            }
+        }
     }
 }

@@ -19,11 +19,10 @@ namespace Minimart.UserControls
             _serviceRole = new EmployeeRoleService();
             LoadData();
         }
-
         public async void LoadData()
         {
             // Get employees with their related role names
-            var employees = await _serviceEmployee.GetAllWithRoleNamesAsync();
+            var employees = await _serviceEmployee.GetAllWithForeignNamesAsync();
 
             var formattedData = employees.Select(emp => new
             {
@@ -49,7 +48,6 @@ namespace Minimart.UserControls
             roleIDCombobox.DisplayMember = "RoleName";  // Display Role Name in the ComboBox
             roleIDCombobox.ValueMember = "RoleID";  // Use Role ID as the value
         }
-
 
         private async void addButton_Click(object sender, EventArgs e)
         {
@@ -88,12 +86,18 @@ namespace Minimart.UserControls
                 RoleID = (int)roleIDCombobox.SelectedValue
             };
 
-            // Add the new employee asynchronously
-            await _serviceEmployee.AddAsync(newEmployee);
-            LoadData();
-            ClearFields();
+            try
+            {
+                // Add the new employee asynchronously
+                await _serviceEmployee.AddAsync(newEmployee);
+                LoadData(); // Refresh data grid after adding
+                ClearFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
 
         private async void updateButton_Click(object sender, EventArgs e)
         {
@@ -146,11 +150,17 @@ namespace Minimart.UserControls
             employeeToUpdate.HireDate = dateHiredPicker.Value;
             employeeToUpdate.RoleID = (int)roleIDCombobox.SelectedValue;
 
-            // Update the employee asynchronously
-            await _serviceEmployee.UpdateAsync(employeeToUpdate);
-            LoadData();
+            try
+            {
+                // Update the employee asynchronously
+                await _serviceEmployee.UpdateAsync(employeeToUpdate);
+                LoadData(); // Refresh data grid after updating
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating employee: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
 
         private async void deleteButton_Click(object sender, EventArgs e)
         {

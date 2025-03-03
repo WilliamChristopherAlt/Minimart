@@ -32,7 +32,8 @@
             this.usernameLabel = new System.Windows.Forms.Label();
             this.formContainer = new System.Windows.Forms.Panel();
             this.categoryButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableButtonPanel = new System.Windows.Forms.Panel();
+            this.measureUnitButton = new System.Windows.Forms.Button();
             this.adminRoleButton = new System.Windows.Forms.Button();
             this.paymentMethodButton = new System.Windows.Forms.Button();
             this.employeeRoleButton = new System.Windows.Forms.Button();
@@ -45,8 +46,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.roleLabel = new System.Windows.Forms.Label();
             this.supplierButton = new System.Windows.Forms.Button();
-            this.measureUnitButton = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.logoutButton = new System.Windows.Forms.Button();
+            this.tableButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -92,29 +93,43 @@
             this.categoryButton.UseVisualStyleBackColor = false;
             this.categoryButton.Click += new System.EventHandler(this.categoryButton_Click);
             // 
-            // panel1
+            // tableButtonPanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel1.Controls.Add(this.measureUnitButton);
-            this.panel1.Controls.Add(this.adminRoleButton);
-            this.panel1.Controls.Add(this.paymentMethodButton);
-            this.panel1.Controls.Add(this.employeeRoleButton);
-            this.panel1.Controls.Add(this.saleDetailButton);
-            this.panel1.Controls.Add(this.saleButton);
-            this.panel1.Controls.Add(this.employeeButton);
-            this.panel1.Controls.Add(this.customerButton);
-            this.panel1.Controls.Add(this.adminButton);
-            this.panel1.Controls.Add(this.productTypeButton);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.roleLabel);
-            this.panel1.Controls.Add(this.supplierButton);
-            this.panel1.Controls.Add(this.categoryButton);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.usernameLabel);
-            this.panel1.Location = new System.Drawing.Point(-5, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(234, 757);
-            this.panel1.TabIndex = 5;
+            this.tableButtonPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tableButtonPanel.Controls.Add(this.logoutButton);
+            this.tableButtonPanel.Controls.Add(this.measureUnitButton);
+            this.tableButtonPanel.Controls.Add(this.adminRoleButton);
+            this.tableButtonPanel.Controls.Add(this.paymentMethodButton);
+            this.tableButtonPanel.Controls.Add(this.employeeRoleButton);
+            this.tableButtonPanel.Controls.Add(this.saleDetailButton);
+            this.tableButtonPanel.Controls.Add(this.saleButton);
+            this.tableButtonPanel.Controls.Add(this.employeeButton);
+            this.tableButtonPanel.Controls.Add(this.customerButton);
+            this.tableButtonPanel.Controls.Add(this.adminButton);
+            this.tableButtonPanel.Controls.Add(this.productTypeButton);
+            this.tableButtonPanel.Controls.Add(this.label3);
+            this.tableButtonPanel.Controls.Add(this.roleLabel);
+            this.tableButtonPanel.Controls.Add(this.supplierButton);
+            this.tableButtonPanel.Controls.Add(this.categoryButton);
+            this.tableButtonPanel.Controls.Add(this.label1);
+            this.tableButtonPanel.Controls.Add(this.usernameLabel);
+            this.tableButtonPanel.Location = new System.Drawing.Point(-5, 0);
+            this.tableButtonPanel.Name = "tableButtonPanel";
+            this.tableButtonPanel.Size = new System.Drawing.Size(234, 757);
+            this.tableButtonPanel.TabIndex = 5;
+            // 
+            // measureUnitButton
+            // 
+            this.measureUnitButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.measureUnitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.measureUnitButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.measureUnitButton.Location = new System.Drawing.Point(17, 178);
+            this.measureUnitButton.Name = "measureUnitButton";
+            this.measureUnitButton.Size = new System.Drawing.Size(205, 43);
+            this.measureUnitButton.TabIndex = 17;
+            this.measureUnitButton.Text = "Measurement Units";
+            this.measureUnitButton.UseVisualStyleBackColor = false;
+            this.measureUnitButton.Click += new System.EventHandler(this.measureUnitButton_Click);
             // 
             // adminRoleButton
             // 
@@ -249,7 +264,7 @@
             this.roleLabel.AutoSize = true;
             this.roleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roleLabel.ForeColor = System.Drawing.Color.Azure;
-            this.roleLabel.Location = new System.Drawing.Point(119, 38);
+            this.roleLabel.Location = new System.Drawing.Point(71, 38);
             this.roleLabel.Name = "roleLabel";
             this.roleLabel.Size = new System.Drawing.Size(57, 20);
             this.roleLabel.TabIndex = 6;
@@ -268,18 +283,18 @@
             this.supplierButton.UseVisualStyleBackColor = false;
             this.supplierButton.Click += new System.EventHandler(this.supplierButton_Click);
             // 
-            // measureUnitButton
+            // logoutButton
             // 
-            this.measureUnitButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.measureUnitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.measureUnitButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.measureUnitButton.Location = new System.Drawing.Point(17, 178);
-            this.measureUnitButton.Name = "measureUnitButton";
-            this.measureUnitButton.Size = new System.Drawing.Size(205, 43);
-            this.measureUnitButton.TabIndex = 17;
-            this.measureUnitButton.Text = "Measurement Units";
-            this.measureUnitButton.UseVisualStyleBackColor = false;
-            this.measureUnitButton.Click += new System.EventHandler(this.measureUnitButton_Click);
+            this.logoutButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.logoutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logoutButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.logoutButton.Location = new System.Drawing.Point(98, 702);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(124, 43);
+            this.logoutButton.TabIndex = 18;
+            this.logoutButton.Text = "Logout";
+            this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
             // MainForm
             // 
@@ -287,13 +302,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1512, 757);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tableButtonPanel);
             this.Controls.Add(this.formContainer);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tableButtonPanel.ResumeLayout(false);
+            this.tableButtonPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -304,7 +319,7 @@
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.Panel formContainer;
         private System.Windows.Forms.Button categoryButton;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel tableButtonPanel;
         private System.Windows.Forms.Button supplierButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label roleLabel;
@@ -318,6 +333,7 @@
         private System.Windows.Forms.Button adminRoleButton;
         private System.Windows.Forms.Button paymentMethodButton;
         private System.Windows.Forms.Button measureUnitButton;
+        private System.Windows.Forms.Button logoutButton;
     }
 }
 

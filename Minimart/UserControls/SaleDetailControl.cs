@@ -67,9 +67,17 @@ namespace Minimart.UserControls
                     Quantity = quantityNumericUpDown.Value
                 };
 
-                await _serviceSaleDetail.AddAsync(newSaleDetail);
-                LoadData();
-                ClearFields();
+                try
+                {
+                    await _serviceSaleDetail.AddAsync(newSaleDetail);  // Attempt to add the sale detail
+                    LoadData();  // Reload the data to reflect the changes
+                    ClearFields();  // Clear the input fields after successful addition
+                }
+                catch (Exception ex)
+                {
+                    // Show an error message if the operation fails
+                    MessageBox.Show($"Error adding SaleDetail: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -84,19 +92,35 @@ namespace Minimart.UserControls
                 var selectedRow = datagrid.SelectedRows[0];
                 var saleDetailId = (int)selectedRow.Cells["SaleDetailID"].Value;
 
-                var saleDetailToUpdate = await _serviceSaleDetail.GetByIdAsync(saleDetailId);
-                if (saleDetailToUpdate != null)
+                // Check if all required fields are filled
+                if (saleIDCombobox.SelectedValue != null && productTypeIDCombobox.SelectedValue != null && quantityNumericUpDown.Value > 0)
                 {
-                    saleDetailToUpdate.SaleID = (int)saleIDCombobox.SelectedValue;
-                    saleDetailToUpdate.ProductTypeID = (int)productTypeIDCombobox.SelectedValue;
-                    saleDetailToUpdate.Quantity = quantityNumericUpDown.Value;
+                    try
+                    {
+                        var saleDetailToUpdate = await _serviceSaleDetail.GetByIdAsync(saleDetailId);
+                        if (saleDetailToUpdate != null)
+                        {
+                            saleDetailToUpdate.SaleID = (int)saleIDCombobox.SelectedValue;
+                            saleDetailToUpdate.ProductTypeID = (int)productTypeIDCombobox.SelectedValue;
+                            saleDetailToUpdate.Quantity = quantityNumericUpDown.Value;
 
-                    await _serviceSaleDetail.UpdateAsync(saleDetailToUpdate);
-                    LoadData();
+                            await _serviceSaleDetail.UpdateAsync(saleDetailToUpdate);  // Attempt to update the sale detail
+                            LoadData();  // Reload the data to reflect the changes
+                        }
+                        else
+                        {
+                            MessageBox.Show("SaleDetail not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Show an error message if the operation fails
+                        MessageBox.Show($"Error updating SaleDetail: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("SaleDetail not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
